@@ -134,15 +134,13 @@
   });
 
   function downloadCSV() {
-    let csv = 'Student,Value
-';
+    let csv = 'Student,Value\n';
     document.querySelectorAll('input[type=range]').forEach(slider => {
       let val = parseInt(slider.value);
       let displayVal = val;
       if (val === -1) displayVal = 'WARNING';
       if (val <= -2) displayVal = 'DETENTION';
-      csv += `${slider.dataset.name},${displayVal}
-`;
+      csv += `${slider.dataset.name},${displayVal}\n`;
     });
 
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });

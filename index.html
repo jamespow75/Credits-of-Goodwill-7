@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Credits of Goodwill</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #1e1e1e;
+      color: white;
+      text-align: center;
+    }
+    .slider-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    .student {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #2e2e2e;
+      padding: 10px;
+      border-radius: 8px;
+      width: 60px;
+    }
+    input[type="range"] {
+      writing-mode: bt-lr;
+      -webkit-appearance: slider-vertical;
+      height: 120px;
+      width: 25px;
+      margin-bottom: 10px;
+    }
+    .student-name {
+      margin-top: 5px;
+      font-size: 12px;
+    }
+    .value {
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #00bcd4;
+      border: none;
+      border-radius: 4px;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0097a7;
+    }
+    @media (max-width: 600px) {
+      .student {
+        width: 45px;
+        padding: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+<h2>Credits of Goodwill</h2>
+<div class="slider-container" id="sliderContainer"></div>
+<button onclick="downloadCSV()">Download Slider Values (CSV)</button>
+<script>
+  const studentNames = [
+    'Alice', 'Ben', 'Charlie', 'Diana', 'Eli', 'Fiona', 'George', 'Hannah',
+    'Isaac', 'Julia', 'Kevin', 'Lily', 'Michael', 'Nina', 'Oscar', 'Paula',
+    'Quinn', 'Ravi', 'Sophie', 'Tom'
+  ];
+  const container = document.getElementById('sliderContainer');
+  studentNames.forEach(name => {
+    const studentDiv = document.createElement('div');
+    studentDiv.className = 'student';
+    const slider = document.createElement('input');
+    slider.type = 'range';
+    slider.min = 1;
+    slider.max = 10;
+    slider.value = 5;
+    slider.dataset.name = name;
+    const valueLabel = document.createElement('div');
+    valueLabel.className = 'value';
+    valueLabel.innerText = slider.value;
+    slider.addEventListener('input', () => {
+      valueLabel.innerText = slider.value;
+    });
+    const nameLabel = document.createElement('div');
+    nameLabel.className = 'student-name';
+    nameLabel.innerText = name;
+    studentDiv.appendChild(slider);
+    studentDiv.appendChild(valueLabel);
+    studentDiv.appendChild(nameLabel);
+    container.appendChild(studentDiv);
+  });
+  function downloadCSV() {
+    let csv = 'Student,Value\n';
+    document.querySelectorAll('input[type=range]').forEach(slider => {
+      csv += `${slider.dataset.name},${slider.value}\n`;
+    });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'credits_of_goodwill.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+</script>
+</body>
+</html>

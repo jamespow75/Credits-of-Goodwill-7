@@ -11,6 +11,7 @@
       color: white;
       text-align: center;
     }
+
     .slider-container {
       display: flex;
       flex-wrap: wrap;
@@ -18,6 +19,7 @@
       justify-content: center;
       margin-bottom: 30px;
     }
+
     .student {
       display: flex;
       flex-direction: column;
@@ -27,6 +29,7 @@
       border-radius: 8px;
       width: 60px;
     }
+
     input[type="range"] {
       writing-mode: bt-lr;
       -webkit-appearance: slider-vertical;
@@ -34,14 +37,25 @@
       width: 25px;
       margin-bottom: 10px;
     }
+
     .student-name {
       margin-top: 5px;
       font-size: 12px;
     }
+
     .value {
       font-weight: bold;
       margin-top: 5px;
     }
+
+    .yellow {
+      color: yellow;
+    }
+
+    .red {
+      color: red;
+    }
+
     button {
       padding: 10px 20px;
       background: #00bcd4;
@@ -51,9 +65,11 @@
       font-weight: bold;
       cursor: pointer;
     }
+
     button:hover {
       background: #0097a7;
     }
+
     @media (max-width: 600px) {
       .student {
         width: 45px;
@@ -63,44 +79,72 @@
   </style>
 </head>
 <body>
+
 <h2>Credits of Goodwill</h2>
+
 <div class="slider-container" id="sliderContainer"></div>
+
 <button onclick="downloadCSV()">Download Slider Values (CSV)</button>
+
 <script>
   const studentNames = [
-    'Alice', 'Ben', 'Charlie', 'Diana', 'Eli', 'Fiona', 'George', 'Hannah',
-    'Isaac', 'Julia', 'Kevin', 'Lily', 'Michael', 'Nina', 'Oscar', 'Paula',
-    'Quinn', 'Ravi', 'Sophie', 'Tom'
+    'Bobby', 'Cake', 'Cici', 'Don', 'Hai', 'John', 'Khun', 'Minute',
+    'Nene', 'Pitta', 'Porsche', 'Pukan', 'Roger', 'Sunshine', 'Zen'
   ];
+
   const container = document.getElementById('sliderContainer');
+
   studentNames.forEach(name => {
     const studentDiv = document.createElement('div');
     studentDiv.className = 'student';
+
     const slider = document.createElement('input');
     slider.type = 'range';
-    slider.min = 1;
+    slider.min = -2;
     slider.max = 10;
     slider.value = 5;
     slider.dataset.name = name;
+
     const valueLabel = document.createElement('div');
     valueLabel.className = 'value';
     valueLabel.innerText = slider.value;
+
     slider.addEventListener('input', () => {
-      valueLabel.innerText = slider.value;
+      let val = parseInt(slider.value);
+      valueLabel.classList.remove('yellow', 'red');
+      if (val === -1) {
+        valueLabel.innerText = '⚠️ WARNING';
+        valueLabel.classList.add('yellow');
+      } else if (val <= -2) {
+        valueLabel.innerText = '🚫 DETENTION';
+        valueLabel.classList.add('red');
+      } else {
+        valueLabel.innerText = val;
+      }
     });
+
     const nameLabel = document.createElement('div');
     nameLabel.className = 'student-name';
     nameLabel.innerText = name;
+
     studentDiv.appendChild(slider);
     studentDiv.appendChild(valueLabel);
     studentDiv.appendChild(nameLabel);
     container.appendChild(studentDiv);
   });
+
   function downloadCSV() {
-    let csv = 'Student,Value\n';
+    let csv = 'Student,Value
+';
     document.querySelectorAll('input[type=range]').forEach(slider => {
-      csv += `${slider.dataset.name},${slider.value}\n`;
+      let val = parseInt(slider.value);
+      let displayVal = val;
+      if (val === -1) displayVal = 'WARNING';
+      if (val <= -2) displayVal = 'DETENTION';
+      csv += `${slider.dataset.name},${displayVal}
+`;
     });
+
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -110,5 +154,6 @@
     document.body.removeChild(link);
   }
 </script>
+
 </body>
 </html>

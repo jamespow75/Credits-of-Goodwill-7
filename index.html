@@ -14,7 +14,17 @@
 
     h2 {
       font-size: 2rem;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 80%;
+      max-width: 600px;
+      height: 80px;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      padding: 10px;
     }
 
     .slider-wrapper {
@@ -75,6 +85,7 @@
 
     button {
       padding: 10px 20px;
+      margin: 5px;
       background: #00bcd4;
       border: none;
       border-radius: 6px;
@@ -92,6 +103,9 @@
 
 <h2>Credits of Goodwill</h2>
 
+<textarea id="nameInput" placeholder="Enter names here, one per line..."></textarea><br>
+<button onclick="generateSliders()">Load Names</button>
+
 <div class="slider-wrapper">
   <div class="slider-container" id="sliderContainer"></div>
 </div>
@@ -99,55 +113,55 @@
 <button onclick="downloadCSV()">Download Slider Values (CSV)</button>
 
 <script>
-  const studentNames = [
-    'Bobby', 'Cake', 'Cici', 'Don', 'Hai', 'John', 'Khun', 'Minute',
-    'Nene', 'Pitta', 'Porsche', 'Pukan', 'Roger', 'Sunshine', 'Zen'
-  ];
+  function generateSliders() {
+    const container = document.getElementById('sliderContainer');
+    container.innerHTML = '';
+    const namesRaw = document.getElementById('nameInput').value;
+    const names = namesRaw.split(/\n|,/).map(name => name.trim()).filter(name => name);
 
-  const container = document.getElementById('sliderContainer');
+    names.forEach(name => {
+      const studentDiv = document.createElement('div');
+      studentDiv.className = 'student';
 
-  studentNames.forEach(name => {
-    const studentDiv = document.createElement('div');
-    studentDiv.className = 'student';
+      const slider = document.createElement('input');
+      slider.type = 'range';
+      slider.min = -2;
+      slider.max = 10;
+      slider.value = 5;
+      slider.dataset.name = name;
 
-    const slider = document.createElement('input');
-    slider.type = 'range';
-    slider.min = -2;
-    slider.max = 10;
-    slider.value = 5;
-    slider.dataset.name = name;
+      const valueLabel = document.createElement('div');
+      valueLabel.className = 'value';
+      valueLabel.innerText = slider.value;
 
-    const valueLabel = document.createElement('div');
-    valueLabel.className = 'value';
-    valueLabel.innerText = slider.value;
+      slider.addEventListener('input', () => {
+        let val = parseInt(slider.value);
+        valueLabel.classList.remove('yellow', 'red', 'green');
 
-    slider.addEventListener('input', () => {
-      let val = parseInt(slider.value);
-      valueLabel.classList.remove('yellow', 'red', 'green');
+        if (val === -1) {
+          valueLabel.innerText = '⚠️ WARNING';
+          valueLabel.classList.add('yellow');
+        } else if (val <= -2) {
+          valueLabel.innerText = '🚫 DETENTION';
+          valueLabel.classList.add('red');
+        } else if (val === 10) {
+          valueLabel.innerText = '😁 10';
+          valueLabel.classList.add('green');
+        } else {
+          valueLabel.innerText = val;
+        }
+      });
 
-      if (val === -1) {
-        valueLabel.innerText = '⚠️ WARNING';
-        valueLabel.classList.add('yellow');
-      } else if (val <= -2) {
-        valueLabel.innerText = '🚫 DETENTION';
-        valueLabel.classList.add('red');
-      } else if (val === 10) {
-        valueLabel.innerText = '😁 10';
-        valueLabel.classList.add('green');
-      } else {
-        valueLabel.innerText = val;
-      }
+      const nameLabel = document.createElement('div');
+      nameLabel.className = 'student-name';
+      nameLabel.innerText = name;
+
+      studentDiv.appendChild(slider);
+      studentDiv.appendChild(valueLabel);
+      studentDiv.appendChild(nameLabel);
+      container.appendChild(studentDiv);
     });
-
-    const nameLabel = document.createElement('div');
-    nameLabel.className = 'student-name';
-    nameLabel.innerText = name;
-
-    studentDiv.appendChild(slider);
-    studentDiv.appendChild(valueLabel);
-    studentDiv.appendChild(nameLabel);
-    container.appendChild(studentDiv);
-  });
+  }
 
   function downloadCSV() {
     let csv = 'Student,Value\n';
@@ -167,6 +181,67 @@
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+
+  // Load names from localStorage on page load
+  window.onload = function() {
+    const savedNames = localStorage.getItem('goodwillNames');
+    if (savedNames) {
+      document.getElementById('nameInput').value = savedNames;
+      generateSliders(); // auto-generate sliders
+    }
+  };
+
+  // Save names to localStorage when user loads names
+  function generateSliders() {
+    const container = document.getElementById('sliderContainer');
+    container.innerHTML = '';
+    const namesRaw = document.getElementById('nameInput').value;
+    localStorage.setItem('goodwillNames', namesRaw); // save to localStorage
+    const names = namesRaw.split(/\n|,/).map(name => name.trim()).filter(name => name);
+
+    names.forEach(name => {
+      const studentDiv = document.createElement('div');
+      studentDiv.className = 'student';
+
+      const slider = document.createElement('input');
+      slider.type = 'range';
+      slider.min = -2;
+      slider.max = 10;
+      slider.value = 5;
+      slider.dataset.name = name;
+
+      const valueLabel = document.createElement('div');
+      valueLabel.className = 'value';
+      valueLabel.innerText = slider.value;
+
+      slider.addEventListener('input', () => {
+        let val = parseInt(slider.value);
+        valueLabel.classList.remove('yellow', 'red', 'green');
+
+        if (val === -1) {
+          valueLabel.innerText = '⚠️ WARNING';
+          valueLabel.classList.add('yellow');
+        } else if (val <= -2) {
+          valueLabel.innerText = '🚫 DETENTION';
+          valueLabel.classList.add('red');
+        } else if (val === 10) {
+          valueLabel.innerText = '😁 10';
+          valueLabel.classList.add('green');
+        } else {
+          valueLabel.innerText = val;
+        }
+      });
+
+      const nameLabel = document.createElement('div');
+      nameLabel.className = 'student-name';
+      nameLabel.innerText = name;
+
+      studentDiv.appendChild(slider);
+      studentDiv.appendChild(valueLabel);
+      studentDiv.appendChild(nameLabel);
+      container.appendChild(studentDiv);
+    });
   }
 </script>
 

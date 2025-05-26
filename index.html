@@ -5,47 +5,60 @@
   <title>Credits of Goodwill</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       padding: 20px;
-      background: #1e1e1e;
+      background: #121212;
       color: white;
       text-align: center;
     }
 
-    .slider-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .slider-wrapper {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px;
       margin-bottom: 30px;
+    }
+
+    .slider-container {
+      display: inline-flex;
+      gap: 20px;
+      justify-content: flex-start;
+      padding-bottom: 10px;
     }
 
     .student {
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: #2e2e2e;
-      padding: 10px;
-      border-radius: 8px;
-      width: 60px;
+      background: #2a2a2a;
+      padding: 12px;
+      border-radius: 10px;
+      width: 70px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
     input[type="range"] {
       writing-mode: bt-lr;
       -webkit-appearance: slider-vertical;
-      height: 120px;
-      width: 25px;
+      height: 140px;
+      width: 30px;
       margin-bottom: 10px;
     }
 
     .student-name {
       margin-top: 5px;
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .value {
       font-weight: bold;
       margin-top: 5px;
+      font-size: 14px;
     }
 
     .yellow {
@@ -56,11 +69,15 @@
       color: red;
     }
 
+    .green {
+      color: #00e676;
+    }
+
     button {
       padding: 10px 20px;
       background: #00bcd4;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       color: black;
       font-weight: bold;
       cursor: pointer;
@@ -69,20 +86,15 @@
     button:hover {
       background: #0097a7;
     }
-
-    @media (max-width: 600px) {
-      .student {
-        width: 45px;
-        padding: 6px;
-      }
-    }
   </style>
 </head>
 <body>
 
 <h2>Credits of Goodwill</h2>
 
-<div class="slider-container" id="sliderContainer"></div>
+<div class="slider-wrapper">
+  <div class="slider-container" id="sliderContainer"></div>
+</div>
 
 <button onclick="downloadCSV()">Download Slider Values (CSV)</button>
 
@@ -111,13 +123,17 @@
 
     slider.addEventListener('input', () => {
       let val = parseInt(slider.value);
-      valueLabel.classList.remove('yellow', 'red');
+      valueLabel.classList.remove('yellow', 'red', 'green');
+
       if (val === -1) {
         valueLabel.innerText = '⚠️ WARNING';
         valueLabel.classList.add('yellow');
       } else if (val <= -2) {
         valueLabel.innerText = '🚫 DETENTION';
         valueLabel.classList.add('red');
+      } else if (val === 10) {
+        valueLabel.innerText = '😁 10';
+        valueLabel.classList.add('green');
       } else {
         valueLabel.innerText = val;
       }
@@ -140,6 +156,7 @@
       let displayVal = val;
       if (val === -1) displayVal = 'WARNING';
       if (val <= -2) displayVal = 'DETENTION';
+      if (val === 10) displayVal = '10 (SMILE)';
       csv += `${slider.dataset.name},${displayVal}\n`;
     });
 

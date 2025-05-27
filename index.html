@@ -125,6 +125,7 @@
 <div class="slider-container" id="sliderContainer"></div>
 
 <button onclick="downloadCSV()">Download Slider Values (CSV)</button>
+<button onclick="resetAll()">Reset All</button>
 
 <div class="behavior-wrapper">
   <div class="behavior-box good-behaviors">
@@ -143,6 +144,33 @@
 </div>
 
 <script>
+  // Load saved student list and slider values from localStorage
+  window.addEventListener('load', () => {
+    const savedList = localStorage.getItem('studentList');
+    if (savedList) {
+      document.getElementById('studentListTextarea').value = savedList;
+      loadStudentList(savedList);
+    }
+  });
+
+  function loadStudentList(listText) {
+    const container = document.getElementById('sliderContainer');
+    container.innerHTML = '';
+    const names = listText.trim().split('\n').map(n => n.trim()).filter(n => n);
+    names.forEach(addStudent);
+  }
+
+  function saveStudentList() {
+    const textarea = document.getElementById('studentListTextarea');
+    localStorage.setItem('studentList', textarea.value.trim());
+  }
+
+  document.getElementById('loadListBtn').onclick = () => {
+    const listText = document.getElementById('studentListTextarea').value.trim();
+    saveStudentList();
+    loadStudentList(listText);
+  };
+
   const container = document.getElementById('sliderContainer');
   const textarea = document.getElementById('studentListTextarea');
   const loadBtn = document.getElementById('loadListBtn');
@@ -183,8 +211,16 @@
       slider.style.background = getColor(val);
     }
 
+    const stored = JSON.parse(localStorage.getItem('sliderValues') || '{}');
+    if (stored[name] !== undefined) slider.value = stored[name];
     updateDisplay(slider.value);
-    slider.addEventListener('input', () => updateDisplay(parseInt(slider.value)));
+    slider.addEventListener('input', () => {
+      const val = parseInt(slider.value);
+      updateDisplay(val);
+      const storedValues = JSON.parse(localStorage.getItem('sliderValues') || '{}');
+      storedValues[name] = val;
+      localStorage.setItem('sliderValues', JSON.stringify(storedValues));
+    });
 
     const nameLabel = document.createElement('div');
     nameLabel.className = 'student-name';
@@ -202,7 +238,16 @@
     names.forEach(addStudent);
   };
 
-  function downloadCSV() {
+  function resetAll() {
+      if (confirm("Are you sure you want to clear all data?")) {
+        localStorage.removeItem('sliderValues');
+        localStorage.removeItem('studentList');
+        document.getElementById('studentListTextarea').value = '';
+        document.getElementById('sliderContainer').innerHTML = '';
+      }
+    }
+
+    function downloadCSV() {
     let csv = 'Student,Value\n';
     document.querySelectorAll('.student').forEach(div => {
       const name = div.querySelector('.student-name').innerText;

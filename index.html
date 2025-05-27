@@ -16,13 +16,14 @@
       margin-bottom: 20px;
     }
 
-    #studentListInput {
+    #studentListTextarea {
       width: 300px;
+      height: 120px;
       padding: 8px;
-      margin-right: 10px;
+      margin-bottom: 10px;
     }
 
-    #addStudentBtn {
+    #loadListBtn {
       padding: 8px 16px;
       background: #00bcd4;
       border: none;
@@ -49,20 +50,6 @@
       border-radius: 8px;
       width: 60px;
       position: relative;
-    }
-
-    .remove-btn {
-      position: absolute;
-      top: 4px;
-      right: 4px;
-      background: red;
-      border: none;
-      color: white;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      font-size: 12px;
-      cursor: pointer;
     }
 
     input[type="range"] {
@@ -124,8 +111,8 @@
 <h2>Credits of Goodwill</h2>
 
 <div id="controls">
-  <input id="studentListInput" type="text" placeholder="Enter student name" />
-  <button id="addStudentBtn">Add Student</button>
+  <textarea id="studentListTextarea" placeholder="Enter one student name per line"></textarea><br>
+  <button id="loadListBtn">Load Student List</button>
 </div>
 
 <div class="slider-container" id="sliderContainer"></div>
@@ -157,8 +144,8 @@
 
 <script>
   const container = document.getElementById('sliderContainer');
-  const input = document.getElementById('studentListInput');
-  const addBtn = document.getElementById('addStudentBtn');
+  const textarea = document.getElementById('studentListTextarea');
+  const loadBtn = document.getElementById('loadListBtn');
 
   function getColor(value) {
     const percent = (value + 1) / 6;
@@ -168,15 +155,8 @@
   }
 
   function addStudent(name) {
-    if (!name) return;
-
     const studentDiv = document.createElement('div');
     studentDiv.className = 'student';
-
-    const removeBtn = document.createElement('button');
-    removeBtn.className = 'remove-btn';
-    removeBtn.innerText = '×';
-    removeBtn.onclick = () => container.removeChild(studentDiv);
 
     const slider = document.createElement('input');
     slider.type = 'range';
@@ -210,19 +190,16 @@
     nameLabel.className = 'student-name';
     nameLabel.innerText = name;
 
-    studentDiv.appendChild(removeBtn);
     studentDiv.appendChild(slider);
     studentDiv.appendChild(valueLabel);
     studentDiv.appendChild(nameLabel);
     container.appendChild(studentDiv);
   }
 
-  addBtn.onclick = () => {
-    const name = input.value.trim();
-    if (name) {
-      addStudent(name);
-      input.value = '';
-    }
+  loadBtn.onclick = () => {
+    container.innerHTML = ''; // clear existing
+    const names = textarea.value.trim().split('\n').map(n => n.trim()).filter(n => n);
+    names.forEach(addStudent);
   };
 
   function downloadCSV() {

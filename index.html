@@ -12,6 +12,26 @@
       text-align: center;
     }
 
+    #controls {
+      margin-bottom: 20px;
+    }
+
+    #studentListInput {
+      width: 300px;
+      padding: 8px;
+      margin-right: 10px;
+    }
+
+    #addStudentBtn {
+      padding: 8px 16px;
+      background: #00bcd4;
+      border: none;
+      color: black;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
     .slider-container {
       display: flex;
       flex-wrap: wrap;
@@ -28,6 +48,21 @@
       padding: 10px;
       border-radius: 8px;
       width: 60px;
+      position: relative;
+    }
+
+    .remove-btn {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: red;
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 12px;
+      cursor: pointer;
     }
 
     input[type="range"] {
@@ -48,16 +83,24 @@
       margin-top: 5px;
     }
 
-    .yellow {
-      color: yellow;
+    .yellow { color: yellow; }
+    .red { color: red; }
+    .green { color: lightgreen; }
+
+    .behavior-box {
+      margin: 20px auto;
+      width: fit-content;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: left;
     }
 
-    .red {
-      color: red;
+    .good-behaviors {
+      background-color: #2e7031;
     }
 
-    .green {
-      color: lightgreen;
+    .bad-behaviors {
+      background-color: #af3b6e;
     }
 
     button {
@@ -68,17 +111,11 @@
       color: black;
       font-weight: bold;
       cursor: pointer;
+      margin-top: 20px;
     }
 
     button:hover {
       background: #0097a7;
-    }
-
-    @media (max-width: 600px) {
-      .student {
-        width: 45px;
-        padding: 6px;
-      }
     }
   </style>
 </head>
@@ -86,17 +123,42 @@
 
 <h2>Credits of Goodwill</h2>
 
+<div id="controls">
+  <input id="studentListInput" type="text" placeholder="Enter student name" />
+  <button id="addStudentBtn">Add Student</button>
+</div>
+
 <div class="slider-container" id="sliderContainer"></div>
 
 <button onclick="downloadCSV()">Download Slider Values (CSV)</button>
 
-<script>
-  const studentNames = [
-    'Bobby', 'Cake', 'Cici', 'Don', 'Hai', 'John', 'Khun', 'Minute',
-    'Nene', 'Pitta', 'Porsche', 'Pukan', 'Roger', 'Sunshine', 'Zen'
-  ];
+<div class="behavior-box good-behaviors">
+  <h3>✔️ Positive Behaviors</h3>
+  <ul>
+    <li>Politeness</li>
+    <li>Respect</li>
+    <li>Being on time</li>
+    <li>Handing in homework</li>
+    <li>Trying your best</li>
+  </ul>
+</div>
 
+<div class="behavior-box bad-behaviors">
+  <h3>❌ Negative Behaviors</h3>
+  <ul>
+    <li>Impoliteness</li>
+    <li>Disrespect</li>
+    <li>Lateness</li>
+    <li>No homework</li>
+    <li>Lack of effort</li>
+    <li>Incorrect uniform</li>
+  </ul>
+</div>
+
+<script>
   const container = document.getElementById('sliderContainer');
+  const input = document.getElementById('studentListInput');
+  const addBtn = document.getElementById('addStudentBtn');
 
   function getColor(value) {
     const percent = (value + 1) / 6;
@@ -105,9 +167,16 @@
     return `rgb(${r},${g},0)`;
   }
 
-  studentNames.forEach(name => {
+  function addStudent(name) {
+    if (!name) return;
+
     const studentDiv = document.createElement('div');
     studentDiv.className = 'student';
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'remove-btn';
+    removeBtn.innerText = '×';
+    removeBtn.onclick = () => container.removeChild(studentDiv);
 
     const slider = document.createElement('input');
     slider.type = 'range';
@@ -135,29 +204,36 @@
     }
 
     updateDisplay(slider.value);
-
-    slider.addEventListener('input', () => {
-      updateDisplay(parseInt(slider.value));
-    });
+    slider.addEventListener('input', () => updateDisplay(parseInt(slider.value)));
 
     const nameLabel = document.createElement('div');
     nameLabel.className = 'student-name';
     nameLabel.innerText = name;
 
+    studentDiv.appendChild(removeBtn);
     studentDiv.appendChild(slider);
     studentDiv.appendChild(valueLabel);
     studentDiv.appendChild(nameLabel);
     container.appendChild(studentDiv);
-  });
+  }
+
+  addBtn.onclick = () => {
+    const name = input.value.trim();
+    if (name) {
+      addStudent(name);
+      input.value = '';
+    }
+  };
 
   function downloadCSV() {
     let csv = 'Student,Value\n';
-    document.querySelectorAll('input[type=range]').forEach(slider => {
-      let val = parseInt(slider.value);
-      let displayVal = val;
-      if (val === -1) displayVal = 'DETENTION';
-      if (val === 0) displayVal = 'WARNING';
-      csv += `${slider.dataset.name},${displayVal}\n`;
+    document.querySelectorAll('.student').forEach(div => {
+      const name = div.querySelector('.student-name').innerText;
+      const value = parseInt(div.querySelector('input[type=range]').value);
+      let label = value;
+      if (value === -1) label = 'DETENTION';
+      if (value === 0) label = 'WARNING';
+      csv += `${name},${label}\n`;
     });
 
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });

@@ -75,11 +75,10 @@
     .green { color: lightgreen; }
 
     .behavior-box {
-      margin: 20px auto;
-      width: fit-content;
       padding: 15px;
       border-radius: 8px;
       text-align: left;
+      min-width: 250px;
     }
 
     .good-behaviors {
@@ -88,6 +87,14 @@
 
     .bad-behaviors {
       background-color: #af3b6e;
+    }
+
+    .behavior-wrapper {
+      display: flex;
+      justify-content: center;
+      flex-wrap: nowrap;
+      gap: 40px;
+      margin-top: 40px;
     }
 
     button {
@@ -119,30 +126,31 @@
 
 <button onclick="downloadCSV()">Download Slider Values (CSV)</button>
 
-<div class="behavior-row" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 40px;">
-<div class="behavior-box good-behaviors" style="min-width: 250px;">
-  <h3>✔️ Positive Behaviors</h3>
-  <ul>
-    <li>Politeness</li>
-    <li>Respect</li>
-    <li>Being on time</li>
-    <li>Handing in homework</li>
-    <li>Trying your best</li>
-  </ul>
-</div>
+<div class="behavior-wrapper">
+  <div class="behavior-box good-behaviors">
+    <h3>✔️ Positive Behaviors</h3>
+    <ul>
+      <li>Politeness</li>
+      <li>Respect</li>
+      <li>Being on time</li>
+      <li>Handing in homework</li>
+      <li>Trying your best</li>
+      <li>Generous sense of humour</li>
+    </ul>
+  </div>
 
-</div>
-<div class="behavior-box bad-behaviors" style="min-width: 250px;">
-  <h3>❌ Negative Behaviors</h3>
-  <ul>
-    <li>Impoliteness</li>
-    <li>Disrespect</li>
-    <li>Lateness</li>
-    <li>No homework</li>
-    <li>Lack of effort</li>
-    <li>Incorrect uniform</li>
-  </ul>
-</div>
+  <div class="behavior-box bad-behaviors">
+    <h3>❌ Negative Behaviors</h3>
+    <ul>
+      <li>Impoliteness</li>
+      <li>Disrespect</li>
+      <li>Lateness</li>
+      <li>No homework</li>
+      <li>Lack of effort</li>
+      <li>Incorrect uniform</li>
+      <li>Unnecessary comments</li>
+    </ul>
+  </div>
 </div>
 
 <script>

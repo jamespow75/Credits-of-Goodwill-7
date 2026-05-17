@@ -1,200 +1,298 @@
 
-<h2 class="sr-only">Credits of Goodwill — SISB classroom behaviour tracker</h2>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans)}
-.app{padding:1rem}
-.header{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem}
-.logo{width:42px;height:42px;border-radius:var(--border-radius-lg);background:#4f46e5;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;flex-shrink:0}
-.title{font-size:18px;font-weight:500;color:var(--color-text-primary)}
-.subtitle{font-size:12px;color:var(--color-text-secondary);margin-top:1px}
-.top-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
-.class-pill{display:flex;gap:4px}
-.class-btn{border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);border-radius:99px;padding:5px 14px;font-size:13px;cursor:pointer;font-family:inherit;transition:all .15s}
-.class-btn:hover{background:var(--color-background-secondary)}
-.class-btn.active{background:#4f46e5;border-color:#4f46e5;color:#fff;font-weight:500}
-.icon-btn{border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);border-radius:var(--border-radius-md);padding:6px 12px;font-size:13px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px}
-.icon-btn:hover{background:var(--color-background-secondary)}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin-bottom:1rem}
-.stat{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px}
-.stat-label{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
-.stat-val{font-size:22px;font-weight:500;color:var(--color-text-primary)}
-.undo-bar{display:flex;align-items:center;justify-content:space-between;background:#fef3c7;border:0.5px solid #fcd34d;border-radius:var(--border-radius-md);padding:8px 14px;margin-bottom:1rem;font-size:13px;color:#92400e}
-.undo-btn{background:#fff;border:0.5px solid #fcd34d;color:#92400e;border-radius:var(--border-radius-md);padding:4px 10px;cursor:pointer;font-size:12px;font-family:inherit}
-.sort-bar{display:flex;gap:6px;align-items:center;margin-bottom:1rem;font-size:12px;color:var(--color-text-secondary);flex-wrap:wrap}
-.sort-btn{border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);color:var(--color-text-secondary);border-radius:99px;padding:3px 10px;font-size:12px;cursor:pointer;font-family:inherit}
-.sort-btn.active{background:#4f46e5;border-color:#4f46e5;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
-.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;transition:border-color .2s}
-.card:hover{border-color:var(--color-border-secondary)}
-.card.flagged{border:1.5px solid #f59e0b}
-.card.detained{border:1.5px solid #ef4444}
-.card.warned{border:1.5px solid #f59e0b}
-.card-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500}
-.card-name{font-size:13px;font-weight:500;color:var(--color-text-primary);text-align:center}
-.badge{font-size:11px;font-weight:500;padding:2px 9px;border-radius:99px}
-.b-green{background:#d1fae5;color:#065f46}
-.b-amber{background:#fef3c7;color:#92400e}
-.b-red{background:#fee2e2;color:#991b1b}
-.stepper{display:flex;align-items:center;gap:6px}
-.step-btn{width:26px;height:26px;border-radius:50%;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--color-text-primary);font-family:inherit;transition:background .15s;line-height:1}
-.step-btn:hover{background:#4f46e5;color:#fff;border-color:#4f46e5}
-.score-num{font-size:22px;font-weight:500;min-width:34px;text-align:center}
-.flag-btn{position:absolute;top:7px;right:7px;background:none;border:none;cursor:pointer;font-size:14px;color:#d1d5db;transition:color .2s;padding:0}
-.flag-btn.on{color:#f59e0b}
-.flag-btn:hover{color:#f59e0b}
-.empty{text-align:center;padding:3rem 1rem;color:var(--color-text-secondary);font-size:14px}
-.empty i{font-size:36px;display:block;margin-bottom:10px;color:#c7d2fe}
-.beh-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1.5rem}
-.beh-box{border-radius:var(--border-radius-lg);padding:12px 14px;border:0.5px solid var(--color-border-tertiary)}
-.beh-pos{background:#ecfdf5}
-.beh-neg{background:#fef2f2}
-.beh-h{font-size:13px;font-weight:500;margin-bottom:8px}
-.beh-pos .beh-h{color:#065f46}
-.beh-neg .beh-h{color:#991b1b}
-.beh-list{list-style:none}
-.beh-list li{font-size:12px;padding:2px 0}
-.beh-pos .beh-list li{color:#047857}
-.beh-neg .beh-list li{color:#b91c1c}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem}
-.modal-back{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center}
-.modal-back.open{display:flex}
-.modal{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1.5rem;width:400px;max-width:95vw;max-height:80vh;overflow-y:auto;color:var(--color-text-primary)}
-.modal h3{font-size:16px;font-weight:500;margin-bottom:1rem}
-.modal-close{float:right;background:none;border:none;cursor:pointer;font-size:18px;color:var(--color-text-secondary)}
-.modal input[type=text],.modal textarea{width:100%;background:var(--color-background-secondary);border:0.5px solid var(--color-border-secondary);color:var(--color-text-primary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:13px;font-family:inherit;margin-top:6px}
-.modal-btn{background:#4f46e5;border:none;color:#fff;border-radius:var(--border-radius-md);padding:8px 16px;cursor:pointer;font-size:13px;font-family:inherit;margin-top:10px}
-.modal-btn.sec{background:var(--color-background-secondary);color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary)}
-.log-row{display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
-.log-time{color:var(--color-text-secondary)}
-.status-msg{font-size:12px;color:var(--color-text-secondary);margin-top:6px}
+:root{
+  --blue:#008BCC;
+  --navy:#002F6C;
+  --orange:#FF8F1C;
+  --bg:#f0f6fb;
+  --surface:#fff;
+  --border:#d0e4f0;
+  --text:#002F6C;
+  --muted:#5a7a96;
+  --green:#1a9952;
+  --red:#d63030;
+}
+body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
+.app{min-height:100vh}
+
+/* ── HEADER ── */
+.hdr{background:linear-gradient(135deg,var(--navy) 0%,#004a9e 100%);padding:16px 20px 0;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:rgba(0,139,204,.18);border-radius:50%}
+.hdr::after{content:'';position:absolute;bottom:-30px;left:30%;width:120px;height:120px;background:rgba(255,143,28,.12);border-radius:50%}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:12px}
+.logo-block{display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);border-radius:10px;padding:6px 12px;backdrop-filter:blur(4px)}
+.logo-sisb{font-weight:900;font-size:22px;color:#fff;letter-spacing:-1px;line-height:1}
+.logo-sisb em{color:var(--blue);font-style:normal}
+.logo-sub{font-size:8px;color:rgba(255,255,255,.7);letter-spacing:.2em;text-transform:uppercase;margin-top:1px}
+.brand-copy{}
+.brand-title{font-size:16px;font-weight:900;color:#fff;letter-spacing:.2px}
+.brand-tagline{font-size:11px;color:rgba(255,255,255,.7);font-weight:300;margin-top:1px}
+.hdr-btns{display:flex;gap:6px;flex-wrap:wrap;position:relative;z-index:1}
+.hbtn{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:7px 13px;font-size:12px;cursor:pointer;font-family:'Lato',sans-serif;font-weight:700;display:flex;align-items:center;gap:5px;letter-spacing:.2px;transition:all .2s;backdrop-filter:blur(4px)}
+.hbtn:hover{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.5)}
+.hbtn.danger{color:#ffcdd2}
+.hbtn.danger:hover{border-color:#ffcdd2}
+
+/* ── TABS ── */
+.tabs-wrap{background:linear-gradient(135deg,var(--navy) 0%,#004a9e 100%);padding:12px 20px 16px;position:relative;z-index:1}
+.tabs{display:flex;gap:5px;flex-wrap:wrap}
+.tab{padding:8px 18px;border-radius:8px;font-family:'Lato',sans-serif;font-size:13px;font-weight:700;border:1.5px solid rgba(255,255,255,.25);cursor:pointer;color:rgba(255,255,255,.7);background:rgba(255,255,255,.08);transition:all .2s;letter-spacing:.2px}
+.tab:hover{color:#fff;background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}
+.tab.on{background:#fff;border-color:#fff;color:var(--navy);box-shadow:0 2px 12px rgba(0,0,0,.2)}
+
+/* ── MAIN ── */
+.main{padding:18px 20px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(95px,1fr));gap:8px;margin-bottom:14px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 13px;border-top:3px solid var(--blue);position:relative;overflow:hidden}
+.stat::after{content:attr(data-emoji);position:absolute;right:8px;top:6px;font-size:20px;opacity:.25}
+.stat-l{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:3px;font-weight:700}
+.stat-v{font-size:24px;font-weight:900;color:var(--navy)}
+.stat.s-flag{border-top-color:var(--orange)}.stat.s-flag .stat-v{color:var(--orange)}
+.stat.s-warn{border-top-color:var(--orange)}.stat.s-warn .stat-v{color:var(--orange)}
+.stat.s-det{border-top-color:var(--red)}.stat.s-det .stat-v{color:var(--red)}
+.stat.s-avg .stat-v{color:var(--blue)}
+
+/* undo */
+.undo{display:flex;align-items:center;justify-content:space-between;background:#fff8f0;border:1px solid #ffd49a;border-left:3px solid var(--orange);border-radius:8px;padding:9px 14px;margin-bottom:12px;font-size:13px;color:#7a4400;font-weight:700}
+.undo-btn{background:#fff;border:1px solid var(--orange);color:var(--orange);border-radius:6px;padding:5px 12px;cursor:pointer;font-size:12px;font-family:'Lato',sans-serif;font-weight:700}
+
+/* sort */
+.sorts{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.sorts-lbl{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.sbtn{background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:99px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:'Lato',sans-serif;font-weight:700;transition:all .2s}
+.sbtn.on{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px;margin-bottom:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 10px 12px;display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;transition:all .18s;border-top:4px solid var(--blue)}
+.card:hover{box-shadow:0 6px 20px rgba(0,47,108,.12);transform:translateY(-2px)}
+.card.flagged{border-top-color:var(--orange);background:#fffbf5}
+.card.detained{border-top-color:var(--red);background:#fff5f5}
+.card.warned{border-top-color:var(--orange);background:#fffbf5}
+
+/* avatar */
+.av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;letter-spacing:-.5px}
+.cname{font-size:13px;font-weight:700;color:var(--navy);text-align:center;line-height:1.2}
+
+/* badge */
+.badge{font-size:10px;font-weight:900;padding:3px 10px;border-radius:99px;letter-spacing:.06em;text-transform:uppercase}
+.bg{background:#e4f7ed;color:#1a7a45;border:1px solid #a3ddb9}
+.ba{background:#fff4e0;color:#7a4400;border:1px solid #ffcc80}
+.br{background:#fde8e8;color:#8b0000;border:1px solid #f4a0a0}
+
+/* stepper */
+.stepper{display:flex;align-items:center;gap:8px}
+.spbtn{width:30px;height:30px;border-radius:50%;border:2px solid var(--border);background:var(--bg);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--navy);font-family:'Lato',sans-serif;font-weight:900;transition:all .18s;line-height:1}
+.spbtn:hover{background:var(--blue);color:#fff;border-color:var(--blue);transform:scale(1.1)}
+.spbtn:active{transform:scale(.92)}
+.snum{font-size:28px;font-weight:900;min-width:36px;text-align:center}
+.col-g{color:var(--green)}
+.col-a{color:var(--orange)}
+.col-r{color:var(--red)}
+.col-b{color:var(--blue)}
+
+/* flag */
+.flag{position:absolute;top:9px;right:9px;background:none;border:none;cursor:pointer;font-size:14px;color:#c5d8e8;transition:all .2s;padding:0;line-height:1}
+.flag.on{color:var(--orange)}
+.flag:hover{color:var(--orange);transform:scale(1.2)}
+
+/* empty */
+.empty{text-align:center;padding:3rem 1rem;color:var(--muted);background:var(--surface);border-radius:12px;border:2px dashed var(--border)}
+.empty-emoji{font-size:48px;display:block;margin-bottom:12px}
+.empty p{font-size:14px;line-height:1.7;font-weight:400}
+.empty strong{font-weight:900;color:var(--navy)}
+
+/* behaviours */
+.sec-h{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.beh-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.beh{border-radius:10px;padding:14px;border:1px solid var(--border);background:var(--surface)}
+.beh-pos{border-top:3px solid var(--green);background:linear-gradient(135deg,#f0faf4 0%,#fff 60%)}
+.beh-neg{border-top:3px solid var(--red);background:linear-gradient(135deg,#fff5f5 0%,#fff 60%)}
+.beh-h{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.beh-pos .beh-h{color:var(--green)}
+.beh-neg .beh-h{color:var(--red)}
+.beh ul{list-style:none}
+.beh ul li{font-size:12px;padding:3px 0;color:var(--muted);font-weight:400;display:flex;gap:6px;align-items:baseline}
+.beh ul li::before{font-weight:900;flex-shrink:0;font-size:13px}
+.beh-pos ul li::before{content:'✓';color:var(--green)}
+.beh-neg ul li::before{content:'✗';color:var(--red)}
+
+/* actions */
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.act-btn{background:var(--surface);border:1.5px solid var(--border);color:var(--navy);border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;font-family:'Lato',sans-serif;font-weight:700;display:flex;align-items:center;gap:6px;transition:all .2s}
+.act-btn:hover{background:var(--bg);border-color:var(--blue);color:var(--blue)}
+
+/* modal */
+.mback{display:none;position:fixed;inset:0;background:rgba(0,15,50,.6);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+.mback.open{display:flex}
+.modal{background:#fff;border-radius:14px;padding:1.5rem;width:430px;max-width:95vw;max-height:82vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,47,108,.22)}
+.modal h3{font-size:18px;font-weight:900;margin-bottom:.75rem;color:var(--navy)}
+.mclose{float:right;background:none;border:none;cursor:pointer;font-size:20px;color:var(--muted);line-height:1}
+.mclose:hover{color:var(--navy)}
+.modal label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.modal input[type=text],.modal textarea{width:100%;background:#f5f8fb;border:1.5px solid var(--border);color:var(--navy);border-radius:8px;padding:9px 12px;font-size:13px;font-family:'Lato',sans-serif;margin-top:5px;font-weight:400}
+.modal input:focus,.modal textarea:focus{outline:none;border-color:var(--blue)}
+.mbtn{background:var(--blue);border:none;color:#fff;border-radius:8px;padding:9px 18px;cursor:pointer;font-size:13px;font-family:'Lato',sans-serif;font-weight:700;margin-top:10px;letter-spacing:.2px;transition:opacity .2s}
+.mbtn:hover{opacity:.88}
+.mbtn.sec{background:#f0f4f8;color:var(--navy);border:1.5px solid var(--border)}
+.log-r{display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:1px solid var(--border)}
+.log-t{color:var(--muted)}
+.smsg{font-size:12px;color:var(--muted);margin-top:8px}
+.divider{height:1px;background:var(--border);margin:16px 0}
+
+/* score pop animation */
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.25)}100%{transform:scale(1)}}
+.pop{animation:pop .2s ease}
 </style>
 
 <div class="app">
-  <div class="header">
-    <div class="logo" aria-hidden="true"><i class="ti ti-star"></i></div>
-    <div>
-      <div class="title">Credits of Goodwill</div>
-      <div class="subtitle">SISB Nonthaburi</div>
+  <!-- header -->
+  <div class="hdr">
+    <div class="hdr-top">
+      <div class="brand">
+        <div class="logo-block">
+          <div class="logo-sisb">S<em>I</em>SB</div>
+          <div class="logo-sub">Schools</div>
+        </div>
+        <div class="brand-copy">
+          <div class="brand-title">⭐ Credits of Goodwill</div>
+          <div class="brand-tagline">Nonthaburi · Spirit of Excellence</div>
+        </div>
+      </div>
+      <div class="hdr-btns">
+        <button class="hbtn" id="loadBtn">📋 Load names</button>
+        <button class="hbtn" id="histBtn">🕐 History</button>
+        <button class="hbtn" id="exportBtn">⬇ Export</button>
+        <button class="hbtn danger" id="resetBtn" title="Reset class">🗑</button>
+      </div>
+    </div>
+    <div class="tabs-wrap" style="background:none;padding:12px 0 16px">
+      <div class="tabs">
+        <button class="tab" data-c="7A">7A</button>
+        <button class="tab" data-c="7E">7E</button>
+        <button class="tab" data-c="8A">8A</button>
+        <button class="tab" data-c="8B">8B</button>
+        <button class="tab" data-c="9Econ">9 Econ</button>
+        <button class="tab" data-c="10Econ">10 Econ</button>
+        <button class="tab" data-c="11Econ">11 Econ</button>
+      </div>
     </div>
   </div>
 
-  <div class="top-bar">
-    <div class="class-pill">
-      <button class="class-btn" data-class="7A">7A</button>
-      <button class="class-btn" data-class="7E">7E</button>
-      <button class="class-btn" data-class="8A">8A</button>
-      <button class="class-btn" data-class="8B">8B</button>
-      <button class="class-btn" data-class="9Econ">9Ec</button>
-      <button class="class-btn" data-class="10Econ">10Ec</button>
-      <button class="class-btn" data-class="11Econ">11Ec</button>
+  <div class="main">
+    <!-- stats -->
+    <div class="stats" id="statsBar" style="display:none">
+      <div class="stat s-avg" data-emoji="👥"><div class="stat-l">Students</div><div class="stat-v" id="sT">0</div></div>
+      <div class="stat s-avg" data-emoji="📊"><div class="stat-l">Avg score</div><div class="stat-v" id="sA">—</div></div>
+      <div class="stat s-flag" data-emoji="🚩"><div class="stat-l">Flagged</div><div class="stat-v" id="sF">0</div></div>
+      <div class="stat s-warn" data-emoji="⚠️"><div class="stat-l">Warnings</div><div class="stat-v" id="sW">0</div></div>
+      <div class="stat s-det" data-emoji="🚨"><div class="stat-l">Detentions</div><div class="stat-v" id="sD">0</div></div>
     </div>
-    <button class="icon-btn" id="loadBtn"><i class="ti ti-table-import" aria-hidden="true"></i> Load names</button>
-    <button class="icon-btn" id="histBtn"><i class="ti ti-history" aria-hidden="true"></i> History</button>
-    <button class="icon-btn" id="exportBtn"><i class="ti ti-download" aria-hidden="true"></i> Export</button>
-    <button class="icon-btn" id="resetBtn" style="color:#ef4444"><i class="ti ti-trash" aria-hidden="true"></i></button>
-  </div>
 
-  <div class="stats" id="statsBar" style="display:none">
-    <div class="stat"><div class="stat-label">Students</div><div class="stat-val" id="sTotal">0</div></div>
-    <div class="stat"><div class="stat-label">Average</div><div class="stat-val" id="sAvg">—</div></div>
-    <div class="stat"><div class="stat-label" style="color:#f59e0b">Flagged</div><div class="stat-val" id="sFlagged" style="color:#f59e0b">0</div></div>
-    <div class="stat"><div class="stat-label" style="color:#f59e0b">Warnings</div><div class="stat-val" id="sWarn" style="color:#f59e0b">0</div></div>
-    <div class="stat"><div class="stat-label" style="color:#ef4444">Detentions</div><div class="stat-val" id="sDet" style="color:#ef4444">0</div></div>
-  </div>
-
-  <div class="undo-bar" id="undoBar" style="display:none">
-    <span id="undoMsg"></span>
-    <button class="undo-btn" id="undoBtn"><i class="ti ti-arrow-back-up" aria-hidden="true"></i> Undo</button>
-  </div>
-
-  <div class="sort-bar" id="sortBar" style="display:none">
-    Sort:
-    <button class="sort-btn active" data-sort="name">Name</button>
-    <button class="sort-btn" data-sort="asc">Score ↑</button>
-    <button class="sort-btn" data-sort="desc">Score ↓</button>
-    <button class="sort-btn" data-sort="flagged">Flagged first</button>
-  </div>
-
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="empty">
-    <i class="ti ti-users" aria-hidden="true"></i>
-    Pick a class above, then load your student list.
-  </div>
-
-  <div class="actions" id="actions" style="display:none">
-    <button class="icon-btn" id="warnBtn"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Show warnings & detentions</button>
-  </div>
-
-  <div class="beh-grid">
-    <div class="beh-box beh-pos">
-      <div class="beh-h"><i class="ti ti-thumb-up" aria-hidden="true"></i> Positive behaviours</div>
-      <ul class="beh-list">
-        <li>Politeness &amp; respect</li>
-        <li>Being on time</li>
-        <li>Homework handed in</li>
-        <li>Trying your best</li>
-        <li>Good sense of humour</li>
-        <li>Speaking English</li>
-      </ul>
+    <div class="undo" id="undoBar" style="display:none">
+      <span>↩ <span id="undoMsg"></span></span>
+      <button class="undo-btn" id="undoBtn">Undo</button>
     </div>
-    <div class="beh-box beh-neg">
-      <div class="beh-h"><i class="ti ti-thumb-down" aria-hidden="true"></i> Negative behaviours</div>
-      <ul class="beh-list">
-        <li>Impoliteness / disrespect</li>
-        <li>Lateness</li>
-        <li>No homework</li>
-        <li>Lack of effort</li>
-        <li>Incorrect uniform</li>
-        <li>Speaking Thai / Chinese</li>
-      </ul>
+
+    <div class="sorts" id="sortBar" style="display:none">
+      <span class="sorts-lbl">Sort:</span>
+      <button class="sbtn on" data-s="name">Name</button>
+      <button class="sbtn" data-s="asc">Score ↑</button>
+      <button class="sbtn" data-s="desc">Score ↓</button>
+      <button class="sbtn" data-s="flagged">Flagged first</button>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <div class="empty" id="empty">
+      <span class="empty-emoji">🎓</span>
+      <p>Pick a class above to get started.<br><strong>Names load automatically</strong> from your roster.</p>
+    </div>
+
+    <div class="acts" id="acts" style="display:none">
+      <button class="act-btn" id="warnBtn">⚠️ Show warnings &amp; detentions</button>
+    </div>
+
+    <div class="divider" id="divider" style="display:none"></div>
+
+    <div id="behWrap" style="display:none">
+      <div class="sec-h">📌 Behaviour reference</div>
+      <div class="beh-grid">
+        <div class="beh beh-pos">
+          <div class="beh-h">👍 Positive behaviours</div>
+          <ul>
+            <li>Politeness &amp; respect</li>
+            <li>Being on time</li>
+            <li>Homework handed in</li>
+            <li>Trying your best</li>
+            <li>Good sense of humour</li>
+            <li>Speaking English</li>
+          </ul>
+        </div>
+        <div class="beh beh-neg">
+          <div class="beh-h">👎 Negative behaviours</div>
+          <ul>
+            <li>Impoliteness / disrespect</li>
+            <li>Lateness</li>
+            <li>No homework</li>
+            <li>Lack of effort</li>
+            <li>Incorrect uniform</li>
+            <li>Speaking Thai / Chinese</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="modal-back" id="loadModal">
+<!-- modals -->
+<div class="mback" id="loadM">
   <div class="modal">
-    <button class="modal-close" id="closeLoad"><i class="ti ti-x" aria-hidden="true"></i></button>
-    <h3>Load names — <span id="loadClass">—</span></h3>
-    <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:10px">Paste your published CSV URL, or enter names manually below.</p>
-    <label style="font-size:12px;color:var(--color-text-secondary)">Google Sheets CSV URL</label>
+    <button class="mclose" id="cLoad">✕</button>
+    <h3>📋 Load names — <span id="lCls"></span></h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Paste a published Google Sheets CSV URL, or enter names manually.</p>
+    <label>Google Sheets CSV URL</label>
     <input type="text" id="csvUrl" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
-    <div style="display:flex;gap:8px;margin-top:8px">
-      <button class="modal-btn" id="fetchBtn"><i class="ti ti-download" aria-hidden="true"></i> Fetch names</button>
-      <button class="modal-btn sec" id="showManual">Enter manually</button>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="mbtn" id="fetchBtn">⬇ Fetch names</button>
+      <button class="mbtn sec" id="showM">✏️ Enter manually</button>
     </div>
-    <div id="manualArea" style="display:none;margin-top:10px">
-      <label style="font-size:12px;color:var(--color-text-secondary)">One name per line</label>
-      <textarea id="manualTxt" style="height:110px"></textarea>
-      <button class="modal-btn" id="loadManual"><i class="ti ti-check" aria-hidden="true"></i> Load names</button>
+    <div id="manArea" style="display:none;margin-top:14px">
+      <label>One name per line</label>
+      <textarea id="manTxt" style="height:110px;margin-top:5px"></textarea>
+      <button class="mbtn" id="loadMan">✓ Load names</button>
     </div>
-    <div class="status-msg" id="loadStatus"></div>
+    <div class="smsg" id="lStat"></div>
   </div>
 </div>
 
-<div class="modal-back" id="histModal">
+<div class="mback" id="histM">
   <div class="modal">
-    <button class="modal-close" id="closeHist"><i class="ti ti-x" aria-hidden="true"></i></button>
-    <h3>Change history</h3>
-    <div id="histList"></div>
+    <button class="mclose" id="cHist">✕</button>
+    <h3>🕐 Change history</h3>
+    <div id="histL" style="margin-top:6px"></div>
   </div>
 </div>
 
-<div class="modal-back" id="csvModal">
+<div class="mback" id="csvM">
   <div class="modal">
-    <button class="modal-close" id="closeCsv"><i class="ti ti-x" aria-hidden="true"></i></button>
-    <h3>Export CSV</h3>
-    <textarea id="csvTxt" readonly style="height:150px;font-family:monospace;font-size:12px;margin-top:0"></textarea>
-    <div style="display:flex;gap:8px;margin-top:8px">
-      <button class="modal-btn" id="dlBtn"><i class="ti ti-download" aria-hidden="true"></i> Download</button>
-      <button class="modal-btn sec" id="cpBtn"><i class="ti ti-copy" aria-hidden="true"></i> Copy</button>
+    <button class="mclose" id="cCsv">✕</button>
+    <h3>⬇ Export CSV</h3>
+    <textarea id="csvTxt" readonly style="height:150px;font-family:monospace;font-size:12px;margin-top:8px"></textarea>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="mbtn" id="dlBtn">⬇ Download</button>
+      <button class="mbtn sec" id="cpBtn">📋 Copy</button>
     </div>
   </div>
 </div>
 
 <script>
-const CLASSES=['7A','7E','8A','8B','9Econ','10Econ','11Econ'];
-const AVATARS={
+const ROSTER={
   '7A':['Bua','Buatong','Tania','Draco','Fuku','Gracia','Jajah','Leo','Mickey','MJ','Pleng','Proud'],
   '7E':['Snow','Awaken','David','Earth','Guitar','Magnate','Rey','Mange','Nana','Nut','Pan Pan'],
   '8A':['Angel','Arlan','Che Che','Don','Elly','Fame','Hai','Hima','James','Khun','Kris','Nene','Pitta','Porsche','Prida','Pukan','Sean'],
@@ -203,162 +301,171 @@ const AVATARS={
   '10Econ':['Cheetah','Moohin','Peak','Pim','Sand'],
   '11Econ':[]
 };
-const COLORS=['#818cf8','#34d399','#fb923c','#f472b6','#60a5fa','#a78bfa','#4ade80','#f87171','#facc15','#38bdf8'];
+const SHEET='https://docs.google.com/spreadsheets/d/e/2PACX-1vQPrJMx_t6K0j2ygdfB-PVV9AkNGgb_NicLGlvJ51cnMaijbSIXA9tSqlVbdvPxR98V9atFtXdV1dyY/pub?gid=475145759&single=true&output=csv';
+const AV_COLS=['#008BCC','#FF8F1C','#1a9952','#9c27b0','#00acc1','#f06292','#43a047','#e53935','#3949ab','#fb8c00'];
 const MIN=-1,MAX=5,DEF=3;
-let cls='',students={},hist=[],lastAct=null,sortM='name',undoT=null;
+let cls='',stu={},hist=[],last=null,srt='name',utimer=null;
 
-function sk(k){return`cog_${cls}_${k}`;}
-function load(){if(!cls)return;try{students=JSON.parse(localStorage.getItem(sk('s'))||'{}');hist=JSON.parse(localStorage.getItem(sk('h'))||'[]');}catch(e){students={};hist=[];}}
-function save(){if(!cls)return;localStorage.setItem(sk('s'),JSON.stringify(students));localStorage.setItem(sk('h'),JSON.stringify(hist));}
-function initClass(names){names.forEach(n=>{if(!students[n])students[n]={score:DEF,flagged:false};});save();}
-function label(v){return v===-1?'DETENTION':v===0?'WARNING':String(v);}
-function avatarBg(name){let h=0;for(let c of name)h=(h*31+c.charCodeAt(0))&0xffff;return COLORS[h%COLORS.length];}
-function initials(name){return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
-function sorted(){const n=Object.keys(students);if(sortM==='name')return n.sort((a,b)=>a.localeCompare(b));if(sortM==='asc')return n.sort((a,b)=>students[a].score-students[b].score);if(sortM==='desc')return n.sort((a,b)=>students[b].score-students[a].score);if(sortM==='flagged')return n.sort((a,b)=>(students[b].flagged?1:0)-(students[a].flagged?1:0));return n.sort((a,b)=>a.localeCompare(b));}
+const sk=k=>`cog_${cls}_${k}`;
+function lstore(){if(!cls)return;try{stu=JSON.parse(localStorage.getItem(sk('s'))||'{}');hist=JSON.parse(localStorage.getItem(sk('h'))||'[]');}catch{stu={};hist=[];}}
+function sstore(){if(!cls)return;localStorage.setItem(sk('s'),JSON.stringify(stu));localStorage.setItem(sk('h'),JSON.stringify(hist));}
+function init(names){names.forEach(n=>{if(!stu[n])stu[n]={score:DEF,flag:false};});sstore();}
+const lbl=v=>v===-1?'DETENTION':v===0?'WARNING':String(v);
+function avCol(n){let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))&0xffff;return AV_COLS[h%AV_COLS.length];}
+function ini(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
+function scoreEmoji(v){if(v===5)return'🌟';if(v===4)return'😊';if(v===3)return'👍';if(v===2)return'😐';if(v===1)return'😕';if(v===0)return'⚠️';return'🚨';}
+function getSorted(){
+  const n=Object.keys(stu);
+  if(srt==='name')return n.sort((a,b)=>a.localeCompare(b));
+  if(srt==='asc')return n.sort((a,b)=>stu[a].score-stu[b].score);
+  if(srt==='desc')return n.sort((a,b)=>stu[b].score-stu[a].score);
+  if(srt==='flagged')return n.sort((a,b)=>(stu[b].flag?1:0)-(stu[a].flag?1:0));
+  return n.sort((a,b)=>a.localeCompare(b));
+}
 
 function render(){
   const g=document.getElementById('grid'),em=document.getElementById('empty');
-  const sb=document.getElementById('statsBar'),sort=document.getElementById('sortBar'),act=document.getElementById('actions');
-  const names=sorted();
-  if(!cls||!names.length){g.innerHTML='';em.style.display='block';sb.style.display='none';sort.style.display='none';act.style.display='none';return;}
-  em.style.display='none';sb.style.display='grid';sort.style.display='flex';act.style.display='flex';
+  const sb=document.getElementById('statsBar'),so=document.getElementById('sortBar');
+  const ac=document.getElementById('acts'),bw=document.getElementById('behWrap');
+  const dv=document.getElementById('divider');
+  const names=getSorted();
+  if(!cls||!names.length){g.innerHTML='';em.style.display='block';sb.style.display='none';so.style.display='none';ac.style.display='none';bw.style.display='none';dv.style.display='none';return;}
+  em.style.display='none';sb.style.display='grid';so.style.display='flex';ac.style.display='flex';bw.style.display='block';dv.style.display='block';
   g.innerHTML=names.map(n=>{
-    const s=students[n];const v=s.score;
-    let cc='card';if(s.flagged)cc+=' flagged';else if(v===-1)cc+=' detained';else if(v===0)cc+=' warned';
-    const sc=v<0?'score-num" style="color:#ef4444':v===0?'score-num" style="color:#f59e0b':'score-num" style="color:#4f46e5';
-    const bc=v<0?'badge b-red':v===0?'badge b-amber':'badge b-green';
-    const bg=avatarBg(n);
-    return`<div class="${cc}" data-name="${n}">
-      <button class="flag-btn ${s.flagged?'on':''}" data-name="${n}" aria-label="Flag ${n}"><i class="ti ti-flag" aria-hidden="true"></i></button>
-      <div class="card-avatar" style="background:${bg}20;color:${bg}">${initials(n)}</div>
-      <div class="card-name">${n}</div>
-      <span class="${bc}">${label(v)}</span>
+    const s=stu[n],v=s.score;
+    let cc='card';
+    if(s.flag)cc+=' flagged';else if(v===-1)cc+=' detained';else if(v===0)cc+=' warned';
+    const ncls=v<0?'col-r':v===0?'col-a':v<=2?'col-a':'col-b';
+    const bcls=v<0?'badge br':v===0?'badge ba':'badge bg';
+    const bg=avCol(n);
+    return`<div class="${cc}">
+      <button class="flag${s.flag?' on':''}" data-n="${n}" aria-label="Flag ${n}" title="Flag for follow-up">🚩</button>
+      <div class="av" style="background:${bg}22;color:${bg};border:2px solid ${bg}55;font-size:14px">${ini(n)}</div>
+      <div class="cname">${n}</div>
+      <span class="${bcls}">${scoreEmoji(v)} ${lbl(v)}</span>
       <div class="stepper">
-        <button class="step-btn" data-name="${n}" data-d="-1" aria-label="Decrease">−</button>
-        <span class="${sc}">${v===-1?'!':v}</span>
-        <button class="step-btn" data-name="${n}" data-d="1" aria-label="Increase">+</button>
+        <button class="spbtn" data-n="${n}" data-d="-1" aria-label="Decrease">−</button>
+        <span class="snum ${ncls}">${v===-1?'!':v}</span>
+        <button class="spbtn" data-n="${n}" data-d="1" aria-label="Increase">+</button>
       </div>
     </div>`;
   }).join('');
-  stats();
-  document.querySelectorAll('.step-btn').forEach(b=>{b.onclick=()=>{
-    const nm=b.dataset.name,d=+b.dataset.d,pv=students[nm].score,nv=Math.max(MIN,Math.min(MAX,pv+d));
+  updateStats();
+  g.querySelectorAll('.spbtn').forEach(b=>b.onclick=()=>{
+    const nm=b.dataset.n,d=+b.dataset.d,pv=stu[nm].score,nv=Math.max(MIN,Math.min(MAX,pv+d));
     if(nv===pv)return;
-    students[nm].score=nv;hist.unshift({ts:Date.now(),name:nm,from:pv,to:nv,cls});if(hist.length>200)hist.pop();
-    lastAct={name:nm,prev:pv};save();showUndo(nm,pv,nv);render();
-  };});
-  document.querySelectorAll('.flag-btn').forEach(b=>{b.onclick=()=>{const nm=b.dataset.name;students[nm].flagged=!students[nm].flagged;save();render();};});
+    stu[nm].score=nv;hist.unshift({ts:Date.now(),n:nm,f:pv,t:nv,c:cls});if(hist.length>200)hist.pop();
+    last={name:nm,prev:pv};sstore();showUndo(nm,pv,nv);render();
+  });
+  g.querySelectorAll('.flag').forEach(b=>b.onclick=()=>{const nm=b.dataset.n;stu[nm].flag=!stu[nm].flag;sstore();render();});
 }
 
-function stats(){
-  const n=Object.keys(students);
-  document.getElementById('sTotal').textContent=n.length;
-  if(!n.length){document.getElementById('sAvg').textContent='—';return;}
-  const sc=n.map(x=>students[x].score);
-  document.getElementById('sAvg').textContent=(sc.reduce((a,b)=>a+b,0)/sc.length).toFixed(1);
-  document.getElementById('sFlagged').textContent=n.filter(x=>students[x].flagged).length;
-  document.getElementById('sWarn').textContent=sc.filter(v=>v===0).length;
-  document.getElementById('sDet').textContent=sc.filter(v=>v===-1).length;
+function updateStats(){
+  const n=Object.keys(stu);
+  document.getElementById('sT').textContent=n.length;
+  if(!n.length){document.getElementById('sA').textContent='—';return;}
+  const sc=n.map(x=>stu[x].score);
+  document.getElementById('sA').textContent=(sc.reduce((a,b)=>a+b,0)/sc.length).toFixed(1);
+  document.getElementById('sF').textContent=n.filter(x=>stu[x].flag).length;
+  document.getElementById('sW').textContent=sc.filter(v=>v===0).length;
+  document.getElementById('sD').textContent=sc.filter(v=>v===-1).length;
 }
 
 function showUndo(n,p,v){
-  document.getElementById('undoMsg').textContent=`${n}: ${label(p)} → ${label(v)}`;
+  document.getElementById('undoMsg').textContent=`${n}: ${lbl(p)} → ${lbl(v)}`;
   document.getElementById('undoBar').style.display='flex';
-  if(undoT)clearTimeout(undoT);
-  undoT=setTimeout(()=>{document.getElementById('undoBar').style.display='none';lastAct=null;},5000);
+  if(utimer)clearTimeout(utimer);
+  utimer=setTimeout(()=>{document.getElementById('undoBar').style.display='none';last=null;},5000);
 }
 
 document.getElementById('undoBtn').onclick=()=>{
-  if(!lastAct)return;const{name,prev}=lastAct;
-  if(students[name]){const c=students[name].score;students[name].score=prev;hist.unshift({ts:Date.now(),name,from:c,to:prev,cls});save();render();}
-  document.getElementById('undoBar').style.display='none';lastAct=null;if(undoT)clearTimeout(undoT);
+  if(!last)return;const{name,prev}=last;
+  if(stu[name]){const c=stu[name].score;stu[name].score=prev;hist.unshift({ts:Date.now(),n:name,f:c,t:prev,c:cls});sstore();render();}
+  document.getElementById('undoBar').style.display='none';last=null;if(utimer)clearTimeout(utimer);
 };
 
-document.querySelectorAll('.class-btn').forEach(b=>{b.onclick=()=>{
-  cls=b.dataset.class;
-  document.querySelectorAll('.class-btn').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');
-  load();
-  if(AVATARS[cls]&&AVATARS[cls].length&&!Object.keys(students).length)initClass(AVATARS[cls]);
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  cls=b.dataset.c;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  lstore();
+  if(ROSTER[cls]&&ROSTER[cls].length&&!Object.keys(stu).length)init(ROSTER[cls]);
   render();
-};});
+});
 
-document.querySelectorAll('.sort-btn').forEach(b=>{b.onclick=()=>{sortM=b.dataset.sort;document.querySelectorAll('.sort-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');render();};});
+document.querySelectorAll('.sbtn').forEach(b=>b.onclick=()=>{srt=b.dataset.s;document.querySelectorAll('.sbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');render();});
 
 document.getElementById('loadBtn').onclick=()=>{
-  if(!cls){alert('Pick a class first.');return;}
-  document.getElementById('loadClass').textContent=cls;
-  document.getElementById('csvUrl').value=localStorage.getItem(`cog_url_${cls}`)||'';
-  document.getElementById('loadStatus').textContent='';
-  document.getElementById('manualArea').style.display='none';
-  document.getElementById('loadModal').classList.add('open');
+  if(!cls){alert('Please select a class first.');return;}
+  document.getElementById('lCls').textContent=cls;
+  document.getElementById('csvUrl').value=localStorage.getItem(`cog_url_${cls}`)||SHEET;
+  document.getElementById('lStat').textContent='';
+  document.getElementById('manArea').style.display='none';
+  document.getElementById('loadM').classList.add('open');
 };
-document.getElementById('closeLoad').onclick=()=>document.getElementById('loadModal').classList.remove('open');
-document.getElementById('showManual').onclick=()=>document.getElementById('manualArea').style.display='block';
-document.getElementById('loadManual').onclick=()=>{
-  const names=document.getElementById('manualTxt').value.trim().split('\n').map(n=>n.trim()).filter(Boolean);
-  if(!names.length)return;initClass(names);document.getElementById('loadModal').classList.remove('open');render();
+document.getElementById('cLoad').onclick=()=>document.getElementById('loadM').classList.remove('open');
+document.getElementById('showM').onclick=()=>document.getElementById('manArea').style.display='block';
+document.getElementById('loadMan').onclick=()=>{
+  const names=document.getElementById('manTxt').value.trim().split('\n').map(n=>n.trim()).filter(Boolean);
+  if(!names.length)return;init(names);document.getElementById('loadM').classList.remove('open');render();
 };
-
 document.getElementById('fetchBtn').onclick=async()=>{
   const url=document.getElementById('csvUrl').value.trim();
-  if(!url){document.getElementById('loadStatus').textContent='Paste a URL first.';return;}
-  document.getElementById('loadStatus').textContent='Fetching…';
+  if(!url){document.getElementById('lStat').textContent='Paste a URL first.';return;}
+  document.getElementById('lStat').textContent='Fetching…';
   localStorage.setItem(`cog_url_${cls}`,url);
   try{
     const r=await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
     const d=await r.json();
     const rows=d.contents.split('\n').filter(l=>l.trim());
-    const hdr=rows[0].split(',');
-    const ci=hdr.findIndex(h=>h.toLowerCase().includes(cls.toLowerCase().replace('econ','').trim()));
+    const hdr=rows[0].split(',').map(h=>h.replace(/^"|"$/g,'').trim());
+    const key=cls.replace('Econ','').trim();
+    let ci=hdr.findIndex(h=>h.toLowerCase()===key.toLowerCase());
+    if(ci<0)ci=hdr.findIndex(h=>h.toLowerCase().includes(key.toLowerCase()));
     let names=[];
     if(ci>=0){
       names=rows.slice(1).map(r=>r.split(',')[ci]).map(n=>n.replace(/^"|"$/g,'').trim()).filter(Boolean);
-    } else {
+    }else{
       names=rows.map(r=>r.split(',')[0].replace(/^"|"$/g,'').trim()).filter(Boolean);
-      const skip=['name','student','class','nickname'];
+      const skip=['name','student','class','nickname','id'];
       if(names.length&&skip.some(s=>names[0].toLowerCase().includes(s)))names=names.slice(1);
     }
-    if(!names.length){document.getElementById('loadStatus').textContent='No names found — check the URL.';return;}
-    initClass(names);document.getElementById('loadStatus').textContent=`✓ Loaded ${names.length} students.`;
-    setTimeout(()=>document.getElementById('loadModal').classList.remove('open'),800);
-    render();
-  }catch(e){document.getElementById('loadStatus').textContent='Could not fetch — make sure the sheet is published publicly.';}
+    if(!names.length){document.getElementById('lStat').textContent='No names found — check the URL or column headers.';return;}
+    init(names);document.getElementById('lStat').textContent=`✓ Loaded ${names.length} students.`;
+    setTimeout(()=>document.getElementById('loadM').classList.remove('open'),700);render();
+  }catch(e){document.getElementById('lStat').textContent='Could not fetch — make sure the sheet is published publicly.';}
 };
 
 document.getElementById('histBtn').onclick=()=>{
-  const hl=document.getElementById('histList');
-  hl.innerHTML=hist.length?hist.slice(0,80).map(e=>{const d=new Date(e.ts);return`<div class="log-row"><span><strong>${e.name}</strong> (${e.cls}): ${label(e.from)} → ${label(e.to)}</span><span class="log-time">${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span></div>`;}).join(''):`<p style="font-size:13px;color:var(--color-text-secondary);margin-top:8px">No changes yet.</p>`;
-  document.getElementById('histModal').classList.add('open');
+  document.getElementById('histL').innerHTML=hist.length
+    ?hist.slice(0,80).map(e=>{const d=new Date(e.ts);return`<div class="log-r"><span><strong>${e.n}</strong> (${e.c}): ${lbl(e.f)} → ${lbl(e.t)}</span><span class="log-t">${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span></div>`;}).join('')
+    :`<p style="font-size:13px;color:var(--muted);margin-top:8px">No changes recorded yet.</p>`;
+  document.getElementById('histM').classList.add('open');
 };
-document.getElementById('closeHist').onclick=()=>document.getElementById('histModal').classList.remove('open');
+document.getElementById('cHist').onclick=()=>document.getElementById('histM').classList.remove('open');
 
 document.getElementById('exportBtn').onclick=()=>{
-  if(!cls||!Object.keys(students).length){alert('No data to export.');return;}
+  if(!cls||!Object.keys(stu).length){alert('No data to export.');return;}
   const date=new Date().toISOString().slice(0,10);
   let csv=`Credits of Goodwill — ${cls} — ${date}\nStudent,Score,Status,Flagged\n`;
-  sorted().forEach(n=>{const s=students[n];csv+=`${n},${s.score},${label(s.score)},${s.flagged?'Yes':'No'}\n`;});
+  getSorted().forEach(n=>{const s=stu[n];csv+=`${n},${s.score},${lbl(s.score)},${s.flag?'Yes':'No'}\n`;});
   document.getElementById('csvTxt').value=csv;
-  document.getElementById('csvModal').classList.add('open');
+  document.getElementById('csvM').classList.add('open');
 };
-document.getElementById('closeCsv').onclick=()=>document.getElementById('csvModal').classList.remove('open');
+document.getElementById('cCsv').onclick=()=>document.getElementById('csvM').classList.remove('open');
 document.getElementById('dlBtn').onclick=()=>{
   const date=new Date().toISOString().slice(0,10);
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([document.getElementById('csvTxt').value],{type:'text/csv'}));a.download=`credits_${cls}_${date}.csv`;a.click();
 };
-document.getElementById('cpBtn').onclick=()=>{navigator.clipboard.writeText(document.getElementById('csvTxt').value);document.getElementById('cpBtn').innerHTML='<i class="ti ti-check"></i> Copied!';setTimeout(()=>{document.getElementById('cpBtn').innerHTML='<i class="ti ti-copy"></i> Copy';},1500);};
-
-document.getElementById('resetBtn').onclick=()=>{if(!cls)return;if(confirm(`Reset all data for ${cls}?`)){students={};hist=[];save();render();}};
-
-document.getElementById('warnBtn').onclick=()=>{
-  const f=Object.keys(students).filter(n=>students[n].score<=0||students[n].flagged);
-  alert(f.length?'Attention needed:\n\n'+f.map(n=>`${n}: ${label(students[n].score)}${students[n].flagged?' [flagged]':''}`).join('\n'):'All students are above warning level.');
+document.getElementById('cpBtn').onclick=()=>{
+  navigator.clipboard.writeText(document.getElementById('csvTxt').value);
+  document.getElementById('cpBtn').textContent='✓ Copied!';
+  setTimeout(()=>{document.getElementById('cpBtn').textContent='📋 Copy';},1500);
 };
-
-document.querySelectorAll('.modal-back').forEach(m=>{m.onclick=e=>{if(e.target===m)m.classList.remove('open');};});
-
-const SHEET_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQPrJMx_t6K0j2ygdfB-PVV9AkNGgb_NicLGlvJ51cnMaijbSIXA9tSqlVbdvPxR98V9atFtXdV1dyY/pub?gid=475145759&single=true&output=csv';
-CLASSES.forEach(c=>localStorage.setItem(`cog_url_${c}`,SHEET_URL));
-
+document.getElementById('resetBtn').onclick=()=>{if(!cls)return;if(confirm(`Reset all scores for ${cls}?`)){stu={};hist=[];sstore();render();}};
+document.getElementById('warnBtn').onclick=()=>{
+  const f=Object.keys(stu).filter(n=>stu[n].score<=0||stu[n].flag);
+  alert(f.length?'Needs attention:\n\n'+f.map(n=>`${n}: ${lbl(stu[n].score)}${stu[n].flag?' [flagged]':''}`).join('\n'):'🎉 All students are above warning level — great work!');
+};
+document.querySelectorAll('.mback').forEach(m=>m.onclick=e=>{if(e.target===m)m.classList.remove('open');});
 render();
 </script>

@@ -3,16 +3,9 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --blue:#008BCC;
-  --navy:#002F6C;
-  --orange:#FF8F1C;
-  --bg:#f0f6fb;
-  --surface:#fff;
-  --border:#d0e4f0;
-  --text:#002F6C;
-  --muted:#5a7a96;
-  --green:#1a9952;
-  --red:#d63030;
+  --blue:#008BCC;--navy:#002F6C;--orange:#FF8F1C;
+  --bg:#f0f6fb;--surface:#fff;--border:#d0e4f0;
+  --text:#002F6C;--muted:#5a7a96;--green:#1a9952;--red:#d63030;
 }
 body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
 .app{min-height:100vh}
@@ -22,24 +15,23 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
 .hdr::after{content:'';position:absolute;bottom:-30px;left:30%;width:120px;height:120px;background:rgba(255,143,28,.12);border-radius:50%}
 .hdr-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:relative;z-index:1}
 .brand{display:flex;align-items:center;gap:12px}
-.logo-block{display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);border-radius:10px;padding:6px 12px;backdrop-filter:blur(4px)}
+.logo-block{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);border-radius:10px;padding:6px 12px;backdrop-filter:blur(4px)}
 .logo-sisb{font-weight:900;font-size:22px;color:#fff;letter-spacing:-1px;line-height:1}
 .logo-sisb em{color:var(--blue);font-style:normal}
 .logo-sub{font-size:8px;color:rgba(255,255,255,.7);letter-spacing:.2em;text-transform:uppercase;margin-top:1px}
-.brand-title{font-size:16px;font-weight:900;color:#fff;letter-spacing:.2px}
+.brand-title{font-size:16px;font-weight:900;color:#fff}
 .brand-tagline{font-size:11px;color:rgba(255,255,255,.7);font-weight:300;margin-top:1px}
 .hdr-btns{display:flex;gap:6px;flex-wrap:wrap;position:relative;z-index:1}
-.hbtn{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:7px 13px;font-size:12px;cursor:pointer;font-family:'Lato',sans-serif;font-weight:700;display:flex;align-items:center;gap:5px;letter-spacing:.2px;transition:all .2s;backdrop-filter:blur(4px)}
-.hbtn:hover{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.5)}
+.hbtn{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:7px 13px;font-size:12px;cursor:pointer;font-family:'Lato',sans-serif;font-weight:700;display:flex;align-items:center;gap:5px;transition:all .2s;backdrop-filter:blur(4px)}
+.hbtn:hover{background:rgba(255,255,255,.28)}
 .hbtn.danger{color:#ffcdd2}
-.hbtn.danger:hover{border-color:#ffcdd2}
 .hbtn.reset-all{color:#ffd700;border-color:rgba(255,215,0,.4)}
 .hbtn.reset-all:hover{background:rgba(255,215,0,.15);border-color:#ffd700}
 
 .tabs-wrap{background:none;padding:12px 0 16px;position:relative;z-index:1}
 .tabs{display:flex;gap:5px;flex-wrap:wrap}
-.tab{padding:8px 18px;border-radius:8px;font-family:'Lato',sans-serif;font-size:13px;font-weight:700;border:1.5px solid rgba(255,255,255,.25);cursor:pointer;color:rgba(255,255,255,.7);background:rgba(255,255,255,.08);transition:all .2s;letter-spacing:.2px}
-.tab:hover{color:#fff;background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}
+.tab{padding:8px 18px;border-radius:8px;font-family:'Lato',sans-serif;font-size:13px;font-weight:700;border:1.5px solid rgba(255,255,255,.25);cursor:pointer;color:rgba(255,255,255,.7);background:rgba(255,255,255,.08);transition:all .2s}
+.tab:hover{color:#fff;background:rgba(255,255,255,.18)}
 .tab.on{background:#fff;border-color:#fff;color:var(--navy);box-shadow:0 2px 12px rgba(0,0,0,.2)}
 
 .main{padding:18px 20px}
@@ -62,53 +54,94 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
 .sbtn{background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:99px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:'Lato',sans-serif;font-weight:700;transition:all .2s}
 .sbtn.on{background:var(--blue);border-color:var(--blue);color:#fff}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px;margin-bottom:16px}
+/* grid — overflow visible so glows aren't clipped */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
+  gap:16px;          /* wider gap gives glow room */
+  margin-bottom:16px;
+  padding:8px;       /* padding so edge-glows aren't cut */
+}
 
-/* ── CARD BASE ── */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 10px 12px;display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;transition:all .25s;border-top:4px solid var(--blue)}
-.card:hover{box-shadow:0 6px 20px rgba(0,47,108,.12);transform:translateY(-2px)}
+/* BASE CARD */
+.card{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  padding:14px 10px 12px;
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  position:relative;
+  transition:all .25s;
+  border-top:4px solid var(--blue);
+}
+.card:hover{transform:translateY(-2px)}
 .card.flagged{border-top-color:var(--orange);background:#fffbf5}
 .card.detained{border-top-color:var(--red);background:#fff5f5}
 .card.warned{border-top-color:var(--orange);background:#fffbf5}
 
-/* ── SCORE 4: subtle warm gold glow ── */
+/* SCORE 4 — warm gold shimmer, clear glow */
+@keyframes glow4{
+  0%,100%{box-shadow:0 0 8px 3px rgba(245,180,0,.45), 0 0 20px 6px rgba(245,180,0,.2), 0 4px 12px rgba(0,0,0,.06)}
+  50%  {box-shadow:0 0 14px 6px rgba(245,180,0,.65), 0 0 32px 12px rgba(245,180,0,.3), 0 4px 12px rgba(0,0,0,.06)}
+}
 .card.score4{
-  border-top-color:#f5c400;
-  border-color:#f5e080;
+  border:2px solid #f5c400;
+  border-top:4px solid #f5c400;
   background:linear-gradient(160deg,#fffef0 0%,#fff 70%);
-  box-shadow:0 0 0 2px #f5e08066, 0 4px 18px rgba(245,196,0,.18);
+  animation:glow4 2.2s ease-in-out infinite;
 }
-.card.score4:hover{box-shadow:0 0 0 2px #f5e08099, 0 6px 24px rgba(245,196,0,.28);}
 
-/* ── SCORE 5: full star glow + shimmer ── */
-@keyframes starPulse{
-  0%,100%{box-shadow:0 0 0 2px #f5c40088, 0 0 16px 4px rgba(245,196,0,.35), 0 0 32px 8px rgba(255,143,28,.15)}
-  50%{box-shadow:0 0 0 3px #f5c400bb, 0 0 24px 8px rgba(245,196,0,.55), 0 0 48px 16px rgba(255,143,28,.25)}
+/* SCORE 5 — intense star glow + rainbow pulse */
+@keyframes glow5{
+  0%  {box-shadow:0 0 12px 5px rgba(255,180,0,.7),  0 0 30px 12px rgba(255,140,0,.4),  0 0 60px 20px rgba(255,100,0,.15)}
+  33% {box-shadow:0 0 18px 8px rgba(255,220,0,.85), 0 0 45px 18px rgba(255,165,0,.55), 0 0 80px 28px rgba(255,80, 0,.25)}
+  66% {box-shadow:0 0 14px 6px rgba(255,200,50,.75),0 0 36px 14px rgba(255,150,0,.5),  0 0 70px 24px rgba(255,60, 0,.2)}
+  100%{box-shadow:0 0 12px 5px rgba(255,180,0,.7),  0 0 30px 12px rgba(255,140,0,.4),  0 0 60px 20px rgba(255,100,0,.15)}
 }
-@keyframes shimmer{
+@keyframes shimmerName{
   0%{background-position:200% center}
   100%{background-position:-200% center}
 }
-.card.score5{
-  border-top:4px solid #f5c400;
-  border-color:#f5c400;
-  background:linear-gradient(160deg,#fffde6 0%,#fff9d0 40%,#fff 70%);
-  animation:starPulse 2s ease-in-out infinite;
+@keyframes bounce5{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.06)}
 }
-.card.score5:hover{transform:translateY(-3px) scale(1.02)}
-.card.score5 .cname{background:linear-gradient(90deg,#b8860b,#f5c400,#ff8c00,#f5c400,#b8860b);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 2.5s linear infinite}
+.card.score5{
+  border:2.5px solid #f5c400;
+  border-top:5px solid #f5c400;
+  background:linear-gradient(160deg,#fffbe6 0%,#fff9d0 35%,#fffef5 70%,#fff 100%);
+  animation:glow5 1.8s ease-in-out infinite, bounce5 2.4s ease-in-out infinite;
+  z-index:2;
+}
+.card.score5 .cname{
+  background:linear-gradient(90deg,#8b6000,#d4a000,#ff8c00,#ffd700,#ff8c00,#d4a000,#8b6000);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmerName 2s linear infinite;
+  font-weight:900;
+}
+/* crown above score-5 card */
+.card.score5::before{
+  content:'👑';
+  position:absolute;
+  top:-18px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:20px;
+  filter:drop-shadow(0 2px 4px rgba(200,140,0,.6));
+}
 
-.av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;letter-spacing:-.5px}
+.av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0}
 .cname{font-size:13px;font-weight:700;color:var(--navy);text-align:center;line-height:1.2}
 
 .badge{font-size:10px;font-weight:900;padding:3px 10px;border-radius:99px;letter-spacing:.06em;text-transform:uppercase}
 .bg{background:#e4f7ed;color:#1a7a45;border:1px solid #a3ddb9}
 .ba{background:#fff4e0;color:#7a4400;border:1px solid #ffcc80}
 .br{background:#fde8e8;color:#8b0000;border:1px solid #f4a0a0}
-/* score 4 badge */
-.b4{background:#fffacd;color:#7a5c00;border:1px solid #f5c400}
-/* score 5 badge */
-.b5{background:linear-gradient(90deg,#fff3b0,#ffe066);color:#6b4c00;border:1px solid #f5c400;font-weight:900}
+.b4{background:#fffacd;color:#7a5c00;border:1.5px solid #f5c400;font-weight:900}
+.b5{background:linear-gradient(90deg,#fff3b0,#ffe066,#fff3b0);color:#5c3d00;border:1.5px solid #f5c400;font-weight:900}
 
 .stepper{display:flex;align-items:center;gap:8px}
 .spbtn{width:30px;height:30px;border-radius:50%;border:2px solid var(--border);background:var(--bg);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--navy);font-family:'Lato',sans-serif;font-weight:900;transition:all .18s;line-height:1}
@@ -119,8 +152,11 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
 .col-a{color:var(--orange)}
 .col-r{color:var(--red)}
 .col-b{color:var(--blue)}
-.col-gold{color:#c8900a}
-.col-star{background:linear-gradient(135deg,#b8860b,#f5c400,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.col-gold{color:#b8860b}
+.col-star{
+  background:linear-gradient(135deg,#b8860b,#f5c400,#ff8c00);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
 
 .flag{position:absolute;top:9px;right:9px;background:none;border:none;cursor:pointer;font-size:14px;color:#c5d8e8;transition:all .2s;padding:0;line-height:1}
 .flag.on{color:var(--orange)}
@@ -145,7 +181,6 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
 .beh-pos ul li::before{content:'✓';color:var(--green)}
 .beh-neg ul li::before{content:'✗';color:var(--red)}
 .beh-neg ul li.nafs{color:#8b0000;font-weight:700}
-.beh-neg ul li.nafs::before{content:'✗';color:var(--red)}
 
 .acts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 .act-btn{background:var(--surface);border:1.5px solid var(--border);color:var(--navy);border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;font-family:'Lato',sans-serif;font-weight:700;display:flex;align-items:center;gap:6px;transition:all .2s}
@@ -163,14 +198,12 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
 .mbtn{background:var(--blue);border:none;color:#fff;border-radius:8px;padding:9px 18px;cursor:pointer;font-size:13px;font-family:'Lato',sans-serif;font-weight:700;margin-top:10px;transition:opacity .2s}
 .mbtn:hover{opacity:.88}
 .mbtn.sec{background:#f0f4f8;color:var(--navy);border:1.5px solid var(--border)}
-.mbtn.danger{background:#fde8e8;color:var(--red);border:1.5px solid #f4a0a0}
-.mbtn.danger:hover{background:#f4a0a0;color:#fff}
 .log-r{display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:1px solid var(--border)}
 .log-t{color:var(--muted)}
 .smsg{font-size:12px;color:var(--muted);margin-top:8px}
 .divider{height:1px;background:var(--border);margin:16px 0}
 
-@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.3)}100%{transform:scale(1)}}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
 .pop{animation:pop .22s ease}
 </style>
 
@@ -188,11 +221,11 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
         </div>
       </div>
       <div class="hdr-btns">
-        <button class="hbtn reset-all" id="resetAllBtn" title="Reset whole class to 3">🔄 Reset to 3</button>
+        <button class="hbtn reset-all" id="resetAllBtn">🔄 Reset to 3</button>
         <button class="hbtn" id="loadBtn">📋 Load names</button>
         <button class="hbtn" id="histBtn">🕐 History</button>
         <button class="hbtn" id="exportBtn">⬇ Export</button>
-        <button class="hbtn danger" id="resetBtn" title="Wipe all data">🗑</button>
+        <button class="hbtn danger" id="resetBtn">🗑</button>
       </div>
     </div>
     <div class="tabs-wrap">
@@ -216,12 +249,10 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
       <div class="stat s-warn" data-emoji="⚠️"><div class="stat-l">Warnings</div><div class="stat-v" id="sW">0</div></div>
       <div class="stat s-det" data-emoji="🚨"><div class="stat-l">Detentions</div><div class="stat-v" id="sD">0</div></div>
     </div>
-
     <div class="undo" id="undoBar" style="display:none">
       <span>↩ <span id="undoMsg"></span></span>
       <button class="undo-btn" id="undoBtn">Undo</button>
     </div>
-
     <div class="sorts" id="sortBar" style="display:none">
       <span class="sorts-lbl">Sort:</span>
       <button class="sbtn on" data-s="name">Name</button>
@@ -229,42 +260,32 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
       <button class="sbtn" data-s="desc">Score ↓</button>
       <button class="sbtn" data-s="flagged">Flagged first</button>
     </div>
-
     <div class="grid" id="grid"></div>
     <div class="empty" id="empty">
       <span class="empty-emoji">🎓</span>
-      <p>Pick a class above to get started.<br><strong>Names load automatically</strong> from your roster.</p>
+      <p>Pick a class above to get started.<br><strong>Names load automatically.</strong></p>
     </div>
-
     <div class="acts" id="acts" style="display:none">
       <button class="act-btn" id="warnBtn">⚠️ Show warnings &amp; detentions</button>
     </div>
-
     <div class="divider" id="divider" style="display:none"></div>
-
     <div id="behWrap" style="display:none">
       <div class="sec-h">📌 Behaviour reference</div>
       <div class="beh-grid">
         <div class="beh beh-pos">
           <div class="beh-h">👍 Positive behaviours</div>
           <ul>
-            <li>Politeness &amp; respect</li>
-            <li>Being on time</li>
-            <li>Homework handed in</li>
-            <li>Trying your best</li>
-            <li>Good sense of humour</li>
-            <li>Speaking English</li>
+            <li>Politeness &amp; respect</li><li>Being on time</li>
+            <li>Homework handed in</li><li>Trying your best</li>
+            <li>Good sense of humour</li><li>Speaking English</li>
           </ul>
         </div>
         <div class="beh beh-neg">
           <div class="beh-h">👎 Negative behaviours</div>
           <ul>
-            <li>Impoliteness / disrespect</li>
-            <li>Lateness</li>
-            <li>No homework</li>
-            <li>Lack of effort</li>
-            <li>Incorrect uniform</li>
-            <li>Speaking Thai / Chinese</li>
+            <li>Impoliteness / disrespect</li><li>Lateness</li>
+            <li>No homework</li><li>Lack of effort</li>
+            <li>Incorrect uniform</li><li>Speaking Thai / Chinese</li>
             <li class="nafs">N.A.F.S.</li>
           </ul>
         </div>
@@ -274,45 +295,39 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
 </div>
 
 <!-- modals -->
-<div class="mback" id="loadM">
-  <div class="modal">
-    <button class="mclose" id="cLoad">✕</button>
-    <h3>📋 Load names — <span id="lCls"></span></h3>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Paste a published Google Sheets CSV URL, or enter names manually.</p>
-    <label>Google Sheets CSV URL</label>
-    <input type="text" id="csvUrl" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
-    <div style="display:flex;gap:8px;margin-top:10px">
-      <button class="mbtn" id="fetchBtn">⬇ Fetch names</button>
-      <button class="mbtn sec" id="showM">✏️ Manual entry</button>
-    </div>
-    <div id="manArea" style="display:none;margin-top:14px">
-      <label>One name per line</label>
-      <textarea id="manTxt" style="height:110px;margin-top:5px"></textarea>
-      <button class="mbtn" id="loadMan">✓ Load names</button>
-    </div>
-    <div class="smsg" id="lStat"></div>
+<div class="mback" id="loadM"><div class="modal">
+  <button class="mclose" id="cLoad">✕</button>
+  <h3>📋 Load names — <span id="lCls"></span></h3>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Paste a published Google Sheets CSV URL, or enter names manually.</p>
+  <label>Google Sheets CSV URL</label>
+  <input type="text" id="csvUrl" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
+  <div style="display:flex;gap:8px;margin-top:10px">
+    <button class="mbtn" id="fetchBtn">⬇ Fetch names</button>
+    <button class="mbtn sec" id="showM">✏️ Manual entry</button>
   </div>
-</div>
+  <div id="manArea" style="display:none;margin-top:14px">
+    <label>One name per line</label>
+    <textarea id="manTxt" style="height:110px;margin-top:5px"></textarea>
+    <button class="mbtn" id="loadMan">✓ Load names</button>
+  </div>
+  <div class="smsg" id="lStat"></div>
+</div></div>
 
-<div class="mback" id="histM">
-  <div class="modal">
-    <button class="mclose" id="cHist">✕</button>
-    <h3>🕐 Change history</h3>
-    <div id="histL" style="margin-top:6px"></div>
-  </div>
-</div>
+<div class="mback" id="histM"><div class="modal">
+  <button class="mclose" id="cHist">✕</button>
+  <h3>🕐 Change history</h3>
+  <div id="histL" style="margin-top:6px"></div>
+</div></div>
 
-<div class="mback" id="csvM">
-  <div class="modal">
-    <button class="mclose" id="cCsv">✕</button>
-    <h3>⬇ Export CSV</h3>
-    <textarea id="csvTxt" readonly style="height:150px;font-family:monospace;font-size:12px;margin-top:8px"></textarea>
-    <div style="display:flex;gap:8px;margin-top:10px">
-      <button class="mbtn" id="dlBtn">⬇ Download</button>
-      <button class="mbtn sec" id="cpBtn">📋 Copy</button>
-    </div>
+<div class="mback" id="csvM"><div class="modal">
+  <button class="mclose" id="cCsv">✕</button>
+  <h3>⬇ Export CSV</h3>
+  <textarea id="csvTxt" readonly style="height:150px;font-family:monospace;font-size:12px;margin-top:8px"></textarea>
+  <div style="display:flex;gap:8px;margin-top:10px">
+    <button class="mbtn" id="dlBtn">⬇ Download</button>
+    <button class="mbtn sec" id="cpBtn">📋 Copy</button>
   </div>
-</div>
+</div></div>
 
 <script>
 const ROSTER={
@@ -364,15 +379,16 @@ function render(){
     const ncls=v===5?'col-star':v===4?'col-gold':v<0?'col-r':v===0?'col-a':v<=2?'col-a':'col-b';
     const bcls=v===5?'badge b5':v===4?'badge b4':v<0?'badge br':v===0?'badge ba':'badge bg';
     const bg=avCol(n);
+    const id='sn_'+n.replace(/[^a-z0-9]/gi,'_');
     return`<div class="${cc}">
-      <button class="flag${s.flag?' on':''}" data-n="${n}" title="Flag for follow-up">🚩</button>
+      <button class="flag${s.flag?' on':''}" data-n="${n}" title="Flag">🚩</button>
       <div class="av" style="background:${bg}22;color:${bg};border:2px solid ${bg}55">${ini(n)}</div>
       <div class="cname">${n}</div>
       <span class="${bcls}">${scoreEmoji(v)} ${lbl(v)}</span>
       <div class="stepper">
-        <button class="spbtn" data-n="${n}" data-d="-1" aria-label="Decrease">−</button>
-        <span class="snum ${ncls}" id="snum-${n.replace(/\s/g,'_')}">${v===-1?'!':v}</span>
-        <button class="spbtn" data-n="${n}" data-d="1" aria-label="Increase">+</button>
+        <button class="spbtn" data-n="${n}" data-d="-1">−</button>
+        <span class="snum ${ncls}" id="${id}">${v===-1?'!':v}</span>
+        <button class="spbtn" data-n="${n}" data-d="1">+</button>
       </div>
     </div>`;
   }).join('');
@@ -382,8 +398,7 @@ function render(){
     if(nv===pv)return;
     stu[nm].score=nv;hist.unshift({ts:Date.now(),n:nm,f:pv,t:nv,c:cls});if(hist.length>200)hist.pop();
     last={name:nm,prev:pv};sstore();showUndo(nm,pv,nv);render();
-    // pop animation on the number
-    const el=document.getElementById('snum-'+nm.replace(/\s/g,'_'));
+    const el=document.getElementById('sn_'+nm.replace(/[^a-z0-9]/gi,'_'));
     if(el){el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');}
   });
   g.querySelectorAll('.flag').forEach(b=>b.onclick=()=>{const nm=b.dataset.n;stu[nm].flag=!stu[nm].flag;sstore();render();});
@@ -413,7 +428,6 @@ document.getElementById('undoBtn').onclick=()=>{
   document.getElementById('undoBar').style.display='none';last=null;if(utimer)clearTimeout(utimer);
 };
 
-// Reset ALL scores to 3
 document.getElementById('resetAllBtn').onclick=()=>{
   if(!cls||!Object.keys(stu).length)return;
   if(confirm(`Reset all ${cls} scores back to 3?`)){
@@ -472,7 +486,7 @@ document.getElementById('fetchBtn').onclick=async()=>{
 document.getElementById('histBtn').onclick=()=>{
   document.getElementById('histL').innerHTML=hist.length
     ?hist.slice(0,80).map(e=>{const d=new Date(e.ts);return`<div class="log-r"><span><strong>${e.n}</strong>${e.note?' — '+e.note:' ('+e.c+'): '+lbl(e.f)+' → '+lbl(e.t)}</span><span class="log-t">${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span></div>`;}).join('')
-    :`<p style="font-size:13px;color:var(--muted);margin-top:8px">No changes recorded yet.</p>`;
+    :`<p style="font-size:13px;color:var(--muted);margin-top:8px">No changes yet.</p>`;
   document.getElementById('histM').classList.add('open');
 };
 document.getElementById('cHist').onclick=()=>document.getElementById('histM').classList.remove('open');
@@ -493,7 +507,7 @@ document.getElementById('cpBtn').onclick=()=>{
   navigator.clipboard.writeText(document.getElementById('csvTxt').value);
   document.getElementById('cpBtn').textContent='✓ Copied!';setTimeout(()=>document.getElementById('cpBtn').textContent='📋 Copy',1500);
 };
-document.getElementById('resetBtn').onclick=()=>{if(!cls)return;if(confirm(`Wipe ALL data for ${cls}? This cannot be undone.`)){stu={};hist=[];sstore();render();}};
+document.getElementById('resetBtn').onclick=()=>{if(!cls)return;if(confirm(`Wipe ALL data for ${cls}?`)){stu={};hist=[];sstore();render();}};
 document.getElementById('warnBtn').onclick=()=>{
   const f=Object.keys(stu).filter(n=>stu[n].score<=0||stu[n].flag);
   alert(f.length?'Needs attention:\n\n'+f.map(n=>`${n}: ${lbl(stu[n].score)}${stu[n].flag?' [flagged]':''}`).join('\n'):'🎉 All students above warning level!');

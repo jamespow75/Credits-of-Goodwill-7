@@ -1,290 +1,364 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Credits of Goodwill</title>
-  <style>
-    
-body {
-  font-family: sans-serif;
-  padding: 20px;
-  background: url('./sisb_background_soft.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: white;
-  text-align: center;
-  backdrop-filter: brightness(0.9);
-}
 
+<h2 class="sr-only">Credits of Goodwill — SISB classroom behaviour tracker</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.app{padding:1rem}
+.header{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem}
+.logo{width:42px;height:42px;border-radius:var(--border-radius-lg);background:#4f46e5;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;flex-shrink:0}
+.title{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.subtitle{font-size:12px;color:var(--color-text-secondary);margin-top:1px}
+.top-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
+.class-pill{display:flex;gap:4px}
+.class-btn{border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);border-radius:99px;padding:5px 14px;font-size:13px;cursor:pointer;font-family:inherit;transition:all .15s}
+.class-btn:hover{background:var(--color-background-secondary)}
+.class-btn.active{background:#4f46e5;border-color:#4f46e5;color:#fff;font-weight:500}
+.icon-btn{border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);border-radius:var(--border-radius-md);padding:6px 12px;font-size:13px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px}
+.icon-btn:hover{background:var(--color-background-secondary)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin-bottom:1rem}
+.stat{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px}
+.stat-label{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.stat-val{font-size:22px;font-weight:500;color:var(--color-text-primary)}
+.undo-bar{display:flex;align-items:center;justify-content:space-between;background:#fef3c7;border:0.5px solid #fcd34d;border-radius:var(--border-radius-md);padding:8px 14px;margin-bottom:1rem;font-size:13px;color:#92400e}
+.undo-btn{background:#fff;border:0.5px solid #fcd34d;color:#92400e;border-radius:var(--border-radius-md);padding:4px 10px;cursor:pointer;font-size:12px;font-family:inherit}
+.sort-bar{display:flex;gap:6px;align-items:center;margin-bottom:1rem;font-size:12px;color:var(--color-text-secondary);flex-wrap:wrap}
+.sort-btn{border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);color:var(--color-text-secondary);border-radius:99px;padding:3px 10px;font-size:12px;cursor:pointer;font-family:inherit}
+.sort-btn.active{background:#4f46e5;border-color:#4f46e5;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;transition:border-color .2s}
+.card:hover{border-color:var(--color-border-secondary)}
+.card.flagged{border:1.5px solid #f59e0b}
+.card.detained{border:1.5px solid #ef4444}
+.card.warned{border:1.5px solid #f59e0b}
+.card-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500}
+.card-name{font-size:13px;font-weight:500;color:var(--color-text-primary);text-align:center}
+.badge{font-size:11px;font-weight:500;padding:2px 9px;border-radius:99px}
+.b-green{background:#d1fae5;color:#065f46}
+.b-amber{background:#fef3c7;color:#92400e}
+.b-red{background:#fee2e2;color:#991b1b}
+.stepper{display:flex;align-items:center;gap:6px}
+.step-btn{width:26px;height:26px;border-radius:50%;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--color-text-primary);font-family:inherit;transition:background .15s;line-height:1}
+.step-btn:hover{background:#4f46e5;color:#fff;border-color:#4f46e5}
+.score-num{font-size:22px;font-weight:500;min-width:34px;text-align:center}
+.flag-btn{position:absolute;top:7px;right:7px;background:none;border:none;cursor:pointer;font-size:14px;color:#d1d5db;transition:color .2s;padding:0}
+.flag-btn.on{color:#f59e0b}
+.flag-btn:hover{color:#f59e0b}
+.empty{text-align:center;padding:3rem 1rem;color:var(--color-text-secondary);font-size:14px}
+.empty i{font-size:36px;display:block;margin-bottom:10px;color:#c7d2fe}
+.beh-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1.5rem}
+.beh-box{border-radius:var(--border-radius-lg);padding:12px 14px;border:0.5px solid var(--color-border-tertiary)}
+.beh-pos{background:#ecfdf5}
+.beh-neg{background:#fef2f2}
+.beh-h{font-size:13px;font-weight:500;margin-bottom:8px}
+.beh-pos .beh-h{color:#065f46}
+.beh-neg .beh-h{color:#991b1b}
+.beh-list{list-style:none}
+.beh-list li{font-size:12px;padding:2px 0}
+.beh-pos .beh-list li{color:#047857}
+.beh-neg .beh-list li{color:#b91c1c}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem}
+.modal-back{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center}
+.modal-back.open{display:flex}
+.modal{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1.5rem;width:400px;max-width:95vw;max-height:80vh;overflow-y:auto;color:var(--color-text-primary)}
+.modal h3{font-size:16px;font-weight:500;margin-bottom:1rem}
+.modal-close{float:right;background:none;border:none;cursor:pointer;font-size:18px;color:var(--color-text-secondary)}
+.modal input[type=text],.modal textarea{width:100%;background:var(--color-background-secondary);border:0.5px solid var(--color-border-secondary);color:var(--color-text-primary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:13px;font-family:inherit;margin-top:6px}
+.modal-btn{background:#4f46e5;border:none;color:#fff;border-radius:var(--border-radius-md);padding:8px 16px;cursor:pointer;font-size:13px;font-family:inherit;margin-top:10px}
+.modal-btn.sec{background:var(--color-background-secondary);color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary)}
+.log-row{display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.log-time{color:var(--color-text-secondary)}
+.status-msg{font-size:12px;color:var(--color-text-secondary);margin-top:6px}
+</style>
 
-    #controls {
-      margin-bottom: 20px;
-    }
+<div class="app">
+  <div class="header">
+    <div class="logo" aria-hidden="true"><i class="ti ti-star"></i></div>
+    <div>
+      <div class="title">Credits of Goodwill</div>
+      <div class="subtitle">SISB Nonthaburi</div>
+    </div>
+  </div>
 
-    #studentListTextarea {
-      width: 300px;
-      height: 120px;
-      padding: 8px;
-      margin-bottom: 10px;
-    }
+  <div class="top-bar">
+    <div class="class-pill">
+      <button class="class-btn" data-class="7A">7A</button>
+      <button class="class-btn" data-class="7E">7E</button>
+      <button class="class-btn" data-class="8A">8A</button>
+      <button class="class-btn" data-class="8B">8B</button>
+      <button class="class-btn" data-class="9Econ">9Ec</button>
+      <button class="class-btn" data-class="10Econ">10Ec</button>
+      <button class="class-btn" data-class="11Econ">11Ec</button>
+    </div>
+    <button class="icon-btn" id="loadBtn"><i class="ti ti-table-import" aria-hidden="true"></i> Load names</button>
+    <button class="icon-btn" id="histBtn"><i class="ti ti-history" aria-hidden="true"></i> History</button>
+    <button class="icon-btn" id="exportBtn"><i class="ti ti-download" aria-hidden="true"></i> Export</button>
+    <button class="icon-btn" id="resetBtn" style="color:#ef4444"><i class="ti ti-trash" aria-hidden="true"></i></button>
+  </div>
 
-    #loadListBtn {
-      padding: 8px 16px;
-      background: #00bcd4;
-      border: none;
-      color: black;
-      font-weight: bold;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+  <div class="stats" id="statsBar" style="display:none">
+    <div class="stat"><div class="stat-label">Students</div><div class="stat-val" id="sTotal">0</div></div>
+    <div class="stat"><div class="stat-label">Average</div><div class="stat-val" id="sAvg">—</div></div>
+    <div class="stat"><div class="stat-label" style="color:#f59e0b">Flagged</div><div class="stat-val" id="sFlagged" style="color:#f59e0b">0</div></div>
+    <div class="stat"><div class="stat-label" style="color:#f59e0b">Warnings</div><div class="stat-val" id="sWarn" style="color:#f59e0b">0</div></div>
+    <div class="stat"><div class="stat-label" style="color:#ef4444">Detentions</div><div class="stat-val" id="sDet" style="color:#ef4444">0</div></div>
+  </div>
 
-    .slider-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-      margin-bottom: 30px;
-    }
+  <div class="undo-bar" id="undoBar" style="display:none">
+    <span id="undoMsg"></span>
+    <button class="undo-btn" id="undoBtn"><i class="ti ti-arrow-back-up" aria-hidden="true"></i> Undo</button>
+  </div>
 
-    .student {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: #2e2e2e;
-      padding: 10px;
-      border-radius: 8px;
-      width: 60px;
-      position: relative;
-    }
+  <div class="sort-bar" id="sortBar" style="display:none">
+    Sort:
+    <button class="sort-btn active" data-sort="name">Name</button>
+    <button class="sort-btn" data-sort="asc">Score ↑</button>
+    <button class="sort-btn" data-sort="desc">Score ↓</button>
+    <button class="sort-btn" data-sort="flagged">Flagged first</button>
+  </div>
 
-    input[type="range"] {
-      writing-mode: bt-lr;
-      -webkit-appearance: slider-vertical;
-      height: 120px;
-      width: 25px;
-      margin-bottom: 10px;
-    }
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">
+    <i class="ti ti-users" aria-hidden="true"></i>
+    Pick a class above, then load your student list.
+  </div>
 
-    .student-name {
-      margin-top: 5px;
-      font-size: 12px;
-    }
+  <div class="actions" id="actions" style="display:none">
+    <button class="icon-btn" id="warnBtn"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Show warnings & detentions</button>
+  </div>
 
-    .value {
-      font-weight: bold;
-      margin-top: 5px;
-    }
-
-    .yellow { color: yellow; }
-    .red { color: red; }
-    .green { color: lightgreen; }
-
-    .behavior-box {
-      background-color: rgba(255, 255, 255, 0.05);
-      padding: 15px;
-      border-radius: 8px;
-      text-align: left;
-      min-width: 250px;
-    }
-
-    .good-behaviors {
-      background-color: #317847;
-      background-color: #2e7031;
-    }
-
-    .bad-behaviors {
-      background-color: #a3335a;
-      background-color: #af3b6e;
-    }
-
-    .behavior-wrapper {
-      display: flex;
-      justify-content: center;
-      flex-wrap: nowrap;
-      gap: 40px;
-      margin-top: 40px;
-    }
-
-    button {
-      padding: 10px 20px;
-      background: #00bcd4;
-      border: none;
-      border-radius: 4px;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    button:hover {
-      background: #0097a7;
-    }
-  </style>
-</head>
-<body>
-
-<h2>Credits of Goodwill</h2>
-
-<div id="controls">
-  <textarea id="studentListTextarea" placeholder="Enter one student name per line"></textarea><br>
-  <button id="loadListBtn">Load Student List</button>
+  <div class="beh-grid">
+    <div class="beh-box beh-pos">
+      <div class="beh-h"><i class="ti ti-thumb-up" aria-hidden="true"></i> Positive behaviours</div>
+      <ul class="beh-list">
+        <li>Politeness &amp; respect</li>
+        <li>Being on time</li>
+        <li>Homework handed in</li>
+        <li>Trying your best</li>
+        <li>Good sense of humour</li>
+        <li>Speaking English</li>
+      </ul>
+    </div>
+    <div class="beh-box beh-neg">
+      <div class="beh-h"><i class="ti ti-thumb-down" aria-hidden="true"></i> Negative behaviours</div>
+      <ul class="beh-list">
+        <li>Impoliteness / disrespect</li>
+        <li>Lateness</li>
+        <li>No homework</li>
+        <li>Lack of effort</li>
+        <li>Incorrect uniform</li>
+        <li>Speaking Thai / Chinese</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
-<div class="slider-container" id="sliderContainer"></div>
-
-<button onclick="downloadCSV()">Download Slider Values (CSV)</button>
-<button onclick="resetAll()">Reset All</button>
-
-<div class="behavior-wrapper">
-<div class="behavior-box good-behaviors">
-  <h3 style="text-align: center; margin-bottom: 10px;">🟩 Positive Behaviors:</h3>
-  <ul>
-    <li>😊 Politeness</li>
-    <li>🙌 Respect</li>
-    <li>⏰ Being on time</li>
-    <li>📘 Handing in homework</li>
-    <li>💪 Trying your best</li>
-    <li>😂 Generous sense of humour</li>
-    <li>🗣️ Speaking English</li>
-  </ul>
+<div class="modal-back" id="loadModal">
+  <div class="modal">
+    <button class="modal-close" id="closeLoad"><i class="ti ti-x" aria-hidden="true"></i></button>
+    <h3>Load names — <span id="loadClass">—</span></h3>
+    <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:10px">Paste your published CSV URL, or enter names manually below.</p>
+    <label style="font-size:12px;color:var(--color-text-secondary)">Google Sheets CSV URL</label>
+    <input type="text" id="csvUrl" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="modal-btn" id="fetchBtn"><i class="ti ti-download" aria-hidden="true"></i> Fetch names</button>
+      <button class="modal-btn sec" id="showManual">Enter manually</button>
+    </div>
+    <div id="manualArea" style="display:none;margin-top:10px">
+      <label style="font-size:12px;color:var(--color-text-secondary)">One name per line</label>
+      <textarea id="manualTxt" style="height:110px"></textarea>
+      <button class="modal-btn" id="loadManual"><i class="ti ti-check" aria-hidden="true"></i> Load names</button>
+    </div>
+    <div class="status-msg" id="loadStatus"></div>
+  </div>
 </div>
-<div class="behavior-box bad-behaviors">
-  <h3 style="text-align: center; margin-bottom: 10px;">🟥 Negative Behaviors:</h3>
-  <ul>
-    <li>😠 Impoliteness</li>
-    <li>👎 Disrespect</li>
-    <li>🕒 Lateness</li>
-    <li>📕 No homework</li>
-    <li>😴 Lack of effort</li>
-    <li>👔 Incorrect uniform</li>
-    <li>🗯️ Unnecessary comments</li>
-    <li>🔇 Speaking Thai / Chinese</li>
-  </ul>
-</div></div>
+
+<div class="modal-back" id="histModal">
+  <div class="modal">
+    <button class="modal-close" id="closeHist"><i class="ti ti-x" aria-hidden="true"></i></button>
+    <h3>Change history</h3>
+    <div id="histList"></div>
+  </div>
+</div>
+
+<div class="modal-back" id="csvModal">
+  <div class="modal">
+    <button class="modal-close" id="closeCsv"><i class="ti ti-x" aria-hidden="true"></i></button>
+    <h3>Export CSV</h3>
+    <textarea id="csvTxt" readonly style="height:150px;font-family:monospace;font-size:12px;margin-top:0"></textarea>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="modal-btn" id="dlBtn"><i class="ti ti-download" aria-hidden="true"></i> Download</button>
+      <button class="modal-btn sec" id="cpBtn"><i class="ti ti-copy" aria-hidden="true"></i> Copy</button>
+    </div>
+  </div>
+</div>
 
 <script>
-  // Load saved student list and slider values from localStorage
-  window.addEventListener('load', () => {
-    const savedList = localStorage.getItem('studentList');
-    if (savedList) {
-      document.getElementById('studentListTextarea').value = savedList;
-      loadStudentList(savedList);
+const CLASSES=['7A','7E','8A','8B','9Econ','10Econ','11Econ'];
+const AVATARS={
+  '7A':['Bua','Buatong','Tania','Draco','Fuku','Gracia','Jajah','Leo','Mickey','MJ','Pleng','Proud'],
+  '7E':['Snow','Awaken','David','Earth','Guitar','Magnate','Rey','Mange','Nana','Nut','Pan Pan'],
+  '8A':['Angel','Arlan','Che Che','Don','Elly','Fame','Hai','Hima','James','Khun','Kris','Nene','Pitta','Porsche','Prida','Pukan','Sean'],
+  '8B':['Amelia','Benja','Cake','Cici','John','Kevin','Khaotang','Khun','Lulu','Mickey','MK','Zen','Sunshine','Vela','Vita'],
+  '9Econ':['Alice','Dung Dung','Fong','Ging','Hawk','Jason','New','Rez','Solis','Tycoon','Victoria','Xinxin','Yeewha','Leon','Harlan'],
+  '10Econ':['Cheetah','Moohin','Peak','Pim','Sand'],
+  '11Econ':[]
+};
+const COLORS=['#818cf8','#34d399','#fb923c','#f472b6','#60a5fa','#a78bfa','#4ade80','#f87171','#facc15','#38bdf8'];
+const MIN=-1,MAX=5,DEF=3;
+let cls='',students={},hist=[],lastAct=null,sortM='name',undoT=null;
+
+function sk(k){return`cog_${cls}_${k}`;}
+function load(){if(!cls)return;try{students=JSON.parse(localStorage.getItem(sk('s'))||'{}');hist=JSON.parse(localStorage.getItem(sk('h'))||'[]');}catch(e){students={};hist=[];}}
+function save(){if(!cls)return;localStorage.setItem(sk('s'),JSON.stringify(students));localStorage.setItem(sk('h'),JSON.stringify(hist));}
+function initClass(names){names.forEach(n=>{if(!students[n])students[n]={score:DEF,flagged:false};});save();}
+function label(v){return v===-1?'DETENTION':v===0?'WARNING':String(v);}
+function avatarBg(name){let h=0;for(let c of name)h=(h*31+c.charCodeAt(0))&0xffff;return COLORS[h%COLORS.length];}
+function initials(name){return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
+function sorted(){const n=Object.keys(students);if(sortM==='name')return n.sort((a,b)=>a.localeCompare(b));if(sortM==='asc')return n.sort((a,b)=>students[a].score-students[b].score);if(sortM==='desc')return n.sort((a,b)=>students[b].score-students[a].score);if(sortM==='flagged')return n.sort((a,b)=>(students[b].flagged?1:0)-(students[a].flagged?1:0));return n.sort((a,b)=>a.localeCompare(b));}
+
+function render(){
+  const g=document.getElementById('grid'),em=document.getElementById('empty');
+  const sb=document.getElementById('statsBar'),sort=document.getElementById('sortBar'),act=document.getElementById('actions');
+  const names=sorted();
+  if(!cls||!names.length){g.innerHTML='';em.style.display='block';sb.style.display='none';sort.style.display='none';act.style.display='none';return;}
+  em.style.display='none';sb.style.display='grid';sort.style.display='flex';act.style.display='flex';
+  g.innerHTML=names.map(n=>{
+    const s=students[n];const v=s.score;
+    let cc='card';if(s.flagged)cc+=' flagged';else if(v===-1)cc+=' detained';else if(v===0)cc+=' warned';
+    const sc=v<0?'score-num" style="color:#ef4444':v===0?'score-num" style="color:#f59e0b':'score-num" style="color:#4f46e5';
+    const bc=v<0?'badge b-red':v===0?'badge b-amber':'badge b-green';
+    const bg=avatarBg(n);
+    return`<div class="${cc}" data-name="${n}">
+      <button class="flag-btn ${s.flagged?'on':''}" data-name="${n}" aria-label="Flag ${n}"><i class="ti ti-flag" aria-hidden="true"></i></button>
+      <div class="card-avatar" style="background:${bg}20;color:${bg}">${initials(n)}</div>
+      <div class="card-name">${n}</div>
+      <span class="${bc}">${label(v)}</span>
+      <div class="stepper">
+        <button class="step-btn" data-name="${n}" data-d="-1" aria-label="Decrease">−</button>
+        <span class="${sc}">${v===-1?'!':v}</span>
+        <button class="step-btn" data-name="${n}" data-d="1" aria-label="Increase">+</button>
+      </div>
+    </div>`;
+  }).join('');
+  stats();
+  document.querySelectorAll('.step-btn').forEach(b=>{b.onclick=()=>{
+    const nm=b.dataset.name,d=+b.dataset.d,pv=students[nm].score,nv=Math.max(MIN,Math.min(MAX,pv+d));
+    if(nv===pv)return;
+    students[nm].score=nv;hist.unshift({ts:Date.now(),name:nm,from:pv,to:nv,cls});if(hist.length>200)hist.pop();
+    lastAct={name:nm,prev:pv};save();showUndo(nm,pv,nv);render();
+  };});
+  document.querySelectorAll('.flag-btn').forEach(b=>{b.onclick=()=>{const nm=b.dataset.name;students[nm].flagged=!students[nm].flagged;save();render();};});
+}
+
+function stats(){
+  const n=Object.keys(students);
+  document.getElementById('sTotal').textContent=n.length;
+  if(!n.length){document.getElementById('sAvg').textContent='—';return;}
+  const sc=n.map(x=>students[x].score);
+  document.getElementById('sAvg').textContent=(sc.reduce((a,b)=>a+b,0)/sc.length).toFixed(1);
+  document.getElementById('sFlagged').textContent=n.filter(x=>students[x].flagged).length;
+  document.getElementById('sWarn').textContent=sc.filter(v=>v===0).length;
+  document.getElementById('sDet').textContent=sc.filter(v=>v===-1).length;
+}
+
+function showUndo(n,p,v){
+  document.getElementById('undoMsg').textContent=`${n}: ${label(p)} → ${label(v)}`;
+  document.getElementById('undoBar').style.display='flex';
+  if(undoT)clearTimeout(undoT);
+  undoT=setTimeout(()=>{document.getElementById('undoBar').style.display='none';lastAct=null;},5000);
+}
+
+document.getElementById('undoBtn').onclick=()=>{
+  if(!lastAct)return;const{name,prev}=lastAct;
+  if(students[name]){const c=students[name].score;students[name].score=prev;hist.unshift({ts:Date.now(),name,from:c,to:prev,cls});save();render();}
+  document.getElementById('undoBar').style.display='none';lastAct=null;if(undoT)clearTimeout(undoT);
+};
+
+document.querySelectorAll('.class-btn').forEach(b=>{b.onclick=()=>{
+  cls=b.dataset.class;
+  document.querySelectorAll('.class-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  load();
+  if(AVATARS[cls]&&AVATARS[cls].length&&!Object.keys(students).length)initClass(AVATARS[cls]);
+  render();
+};});
+
+document.querySelectorAll('.sort-btn').forEach(b=>{b.onclick=()=>{sortM=b.dataset.sort;document.querySelectorAll('.sort-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');render();};});
+
+document.getElementById('loadBtn').onclick=()=>{
+  if(!cls){alert('Pick a class first.');return;}
+  document.getElementById('loadClass').textContent=cls;
+  document.getElementById('csvUrl').value=localStorage.getItem(`cog_url_${cls}`)||'';
+  document.getElementById('loadStatus').textContent='';
+  document.getElementById('manualArea').style.display='none';
+  document.getElementById('loadModal').classList.add('open');
+};
+document.getElementById('closeLoad').onclick=()=>document.getElementById('loadModal').classList.remove('open');
+document.getElementById('showManual').onclick=()=>document.getElementById('manualArea').style.display='block';
+document.getElementById('loadManual').onclick=()=>{
+  const names=document.getElementById('manualTxt').value.trim().split('\n').map(n=>n.trim()).filter(Boolean);
+  if(!names.length)return;initClass(names);document.getElementById('loadModal').classList.remove('open');render();
+};
+
+document.getElementById('fetchBtn').onclick=async()=>{
+  const url=document.getElementById('csvUrl').value.trim();
+  if(!url){document.getElementById('loadStatus').textContent='Paste a URL first.';return;}
+  document.getElementById('loadStatus').textContent='Fetching…';
+  localStorage.setItem(`cog_url_${cls}`,url);
+  try{
+    const r=await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+    const d=await r.json();
+    const rows=d.contents.split('\n').filter(l=>l.trim());
+    const hdr=rows[0].split(',');
+    const ci=hdr.findIndex(h=>h.toLowerCase().includes(cls.toLowerCase().replace('econ','').trim()));
+    let names=[];
+    if(ci>=0){
+      names=rows.slice(1).map(r=>r.split(',')[ci]).map(n=>n.replace(/^"|"$/g,'').trim()).filter(Boolean);
+    } else {
+      names=rows.map(r=>r.split(',')[0].replace(/^"|"$/g,'').trim()).filter(Boolean);
+      const skip=['name','student','class','nickname'];
+      if(names.length&&skip.some(s=>names[0].toLowerCase().includes(s)))names=names.slice(1);
     }
-  });
+    if(!names.length){document.getElementById('loadStatus').textContent='No names found — check the URL.';return;}
+    initClass(names);document.getElementById('loadStatus').textContent=`✓ Loaded ${names.length} students.`;
+    setTimeout(()=>document.getElementById('loadModal').classList.remove('open'),800);
+    render();
+  }catch(e){document.getElementById('loadStatus').textContent='Could not fetch — make sure the sheet is published publicly.';}
+};
 
-  function loadStudentList(listText) {
-    const container = document.getElementById('sliderContainer');
-    container.innerHTML = '';
-    const names = listText.trim().split('\n').map(n => n.trim()).filter(n => n);
-    names.forEach(addStudent);
-  }
+document.getElementById('histBtn').onclick=()=>{
+  const hl=document.getElementById('histList');
+  hl.innerHTML=hist.length?hist.slice(0,80).map(e=>{const d=new Date(e.ts);return`<div class="log-row"><span><strong>${e.name}</strong> (${e.cls}): ${label(e.from)} → ${label(e.to)}</span><span class="log-time">${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span></div>`;}).join(''):`<p style="font-size:13px;color:var(--color-text-secondary);margin-top:8px">No changes yet.</p>`;
+  document.getElementById('histModal').classList.add('open');
+};
+document.getElementById('closeHist').onclick=()=>document.getElementById('histModal').classList.remove('open');
 
-  function saveStudentList() {
-    const textarea = document.getElementById('studentListTextarea');
-    localStorage.setItem('studentList', textarea.value.trim());
-  }
+document.getElementById('exportBtn').onclick=()=>{
+  if(!cls||!Object.keys(students).length){alert('No data to export.');return;}
+  const date=new Date().toISOString().slice(0,10);
+  let csv=`Credits of Goodwill — ${cls} — ${date}\nStudent,Score,Status,Flagged\n`;
+  sorted().forEach(n=>{const s=students[n];csv+=`${n},${s.score},${label(s.score)},${s.flagged?'Yes':'No'}\n`;});
+  document.getElementById('csvTxt').value=csv;
+  document.getElementById('csvModal').classList.add('open');
+};
+document.getElementById('closeCsv').onclick=()=>document.getElementById('csvModal').classList.remove('open');
+document.getElementById('dlBtn').onclick=()=>{
+  const date=new Date().toISOString().slice(0,10);
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([document.getElementById('csvTxt').value],{type:'text/csv'}));a.download=`credits_${cls}_${date}.csv`;a.click();
+};
+document.getElementById('cpBtn').onclick=()=>{navigator.clipboard.writeText(document.getElementById('csvTxt').value);document.getElementById('cpBtn').innerHTML='<i class="ti ti-check"></i> Copied!';setTimeout(()=>{document.getElementById('cpBtn').innerHTML='<i class="ti ti-copy"></i> Copy';},1500);};
 
-  document.getElementById('loadListBtn').onclick = () => {
-    const listText = document.getElementById('studentListTextarea').value.trim();
-    saveStudentList();
-    loadStudentList(listText);
-  };
+document.getElementById('resetBtn').onclick=()=>{if(!cls)return;if(confirm(`Reset all data for ${cls}?`)){students={};hist=[];save();render();}};
 
-  const container = document.getElementById('sliderContainer');
-  const textarea = document.getElementById('studentListTextarea');
-  const loadBtn = document.getElementById('loadListBtn');
+document.getElementById('warnBtn').onclick=()=>{
+  const f=Object.keys(students).filter(n=>students[n].score<=0||students[n].flagged);
+  alert(f.length?'Attention needed:\n\n'+f.map(n=>`${n}: ${label(students[n].score)}${students[n].flagged?' [flagged]':''}`).join('\n'):'All students are above warning level.');
+};
 
-  function getColor(value) {
-    const percent = (value + 1) / 6;
-    const r = Math.round(255 * (1 - percent));
-    const g = Math.round(255 * percent);
-    return `rgb(${r},${g},0)`;
-  }
+document.querySelectorAll('.modal-back').forEach(m=>{m.onclick=e=>{if(e.target===m)m.classList.remove('open');};});
 
-  function addStudent(name) {
-    const studentDiv = document.createElement('div');
-    studentDiv.className = 'student';
+const SHEET_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQPrJMx_t6K0j2ygdfB-PVV9AkNGgb_NicLGlvJ51cnMaijbSIXA9tSqlVbdvPxR98V9atFtXdV1dyY/pub?gid=475145759&single=true&output=csv';
+CLASSES.forEach(c=>localStorage.setItem(`cog_url_${c}`,SHEET_URL));
 
-    const slider = document.createElement('input');
-    slider.type = 'range';
-    slider.min = -1;
-    slider.max = 5;
-    slider.value = 3;
-    slider.dataset.name = name;
-
-    const valueLabel = document.createElement('div');
-    valueLabel.className = 'value';
-
-    function updateDisplay(val) {
-      valueLabel.className = 'value';
-      if (val == -1) {
-        valueLabel.innerText = '🚫 DETENTION';
-        valueLabel.classList.add('red');
-      } else if (val == 0) {
-        valueLabel.innerText = '⚠️ WARNING';
-        valueLabel.classList.add('yellow');
-      } else {
-        valueLabel.innerText = val;
-        valueLabel.classList.add('green');
-      }
-      slider.style.background = getColor(val);
-    }
-
-    const stored = JSON.parse(localStorage.getItem('sliderValues') || '{}');
-    if (stored[name] !== undefined) slider.value = stored[name];
-    updateDisplay(slider.value);
-    slider.addEventListener('input', () => {
-      const val = parseInt(slider.value);
-      updateDisplay(val);
-      const storedValues = JSON.parse(localStorage.getItem('sliderValues') || '{}');
-      storedValues[name] = val;
-      localStorage.setItem('sliderValues', JSON.stringify(storedValues));
-    });
-
-    const nameLabel = document.createElement('div');
-    nameLabel.className = 'student-name';
-    nameLabel.innerText = name;
-
-    studentDiv.appendChild(slider);
-    studentDiv.appendChild(valueLabel);
-    studentDiv.appendChild(nameLabel);
-    container.appendChild(studentDiv);
-  }
-
-  loadBtn.onclick = () => {
-    container.innerHTML = ''; // clear existing
-    const names = textarea.value.trim().split('\n').map(n => n.trim()).filter(n => n);
-    names.forEach(addStudent);
-  };
-
-  function resetAll() {
-      if (confirm("Are you sure you want to clear all data?")) {
-        localStorage.removeItem('sliderValues');
-        localStorage.removeItem('studentList');
-        document.getElementById('studentListTextarea').value = '';
-        document.getElementById('sliderContainer').innerHTML = '';
-      }
-    }
-
-    function downloadCSV() {
-    let csv = 'Student,Value\n';
-    document.querySelectorAll('.student').forEach(div => {
-      const name = div.querySelector('.student-name').innerText;
-      const value = parseInt(div.querySelector('input[type=range]').value);
-      let label = value;
-      if (value === -1) label = 'DETENTION';
-      if (value === 0) label = 'WARNING';
-      csv += `${name},${label}\n`;
-    });
-
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'credits_of_goodwill.csv';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
+render();
 </script>
-
-</body>
-</html>

@@ -17,7 +17,6 @@
 body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
 .app{min-height:100vh}
 
-/* ── HEADER ── */
 .hdr{background:linear-gradient(135deg,var(--navy) 0%,#004a9e 100%);padding:16px 20px 0;position:relative;overflow:hidden}
 .hdr::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:rgba(0,139,204,.18);border-radius:50%}
 .hdr::after{content:'';position:absolute;bottom:-30px;left:30%;width:120px;height:120px;background:rgba(255,143,28,.12);border-radius:50%}
@@ -27,7 +26,6 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
 .logo-sisb{font-weight:900;font-size:22px;color:#fff;letter-spacing:-1px;line-height:1}
 .logo-sisb em{color:var(--blue);font-style:normal}
 .logo-sub{font-size:8px;color:rgba(255,255,255,.7);letter-spacing:.2em;text-transform:uppercase;margin-top:1px}
-.brand-copy{}
 .brand-title{font-size:16px;font-weight:900;color:#fff;letter-spacing:.2px}
 .brand-tagline{font-size:11px;color:rgba(255,255,255,.7);font-weight:300;margin-top:1px}
 .hdr-btns{display:flex;gap:6px;flex-wrap:wrap;position:relative;z-index:1}
@@ -35,79 +33,104 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
 .hbtn:hover{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.5)}
 .hbtn.danger{color:#ffcdd2}
 .hbtn.danger:hover{border-color:#ffcdd2}
+.hbtn.reset-all{color:#ffd700;border-color:rgba(255,215,0,.4)}
+.hbtn.reset-all:hover{background:rgba(255,215,0,.15);border-color:#ffd700}
 
-/* ── TABS ── */
-.tabs-wrap{background:linear-gradient(135deg,var(--navy) 0%,#004a9e 100%);padding:12px 20px 16px;position:relative;z-index:1}
+.tabs-wrap{background:none;padding:12px 0 16px;position:relative;z-index:1}
 .tabs{display:flex;gap:5px;flex-wrap:wrap}
 .tab{padding:8px 18px;border-radius:8px;font-family:'Lato',sans-serif;font-size:13px;font-weight:700;border:1.5px solid rgba(255,255,255,.25);cursor:pointer;color:rgba(255,255,255,.7);background:rgba(255,255,255,.08);transition:all .2s;letter-spacing:.2px}
 .tab:hover{color:#fff;background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}
 .tab.on{background:#fff;border-color:#fff;color:var(--navy);box-shadow:0 2px 12px rgba(0,0,0,.2)}
 
-/* ── MAIN ── */
 .main{padding:18px 20px}
 
-/* stats */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(95px,1fr));gap:8px;margin-bottom:14px}
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 13px;border-top:3px solid var(--blue);position:relative;overflow:hidden}
 .stat::after{content:attr(data-emoji);position:absolute;right:8px;top:6px;font-size:20px;opacity:.25}
 .stat-l{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:3px;font-weight:700}
 .stat-v{font-size:24px;font-weight:900;color:var(--navy)}
+.stat.s-avg .stat-v{color:var(--blue)}
 .stat.s-flag{border-top-color:var(--orange)}.stat.s-flag .stat-v{color:var(--orange)}
 .stat.s-warn{border-top-color:var(--orange)}.stat.s-warn .stat-v{color:var(--orange)}
 .stat.s-det{border-top-color:var(--red)}.stat.s-det .stat-v{color:var(--red)}
-.stat.s-avg .stat-v{color:var(--blue)}
 
-/* undo */
 .undo{display:flex;align-items:center;justify-content:space-between;background:#fff8f0;border:1px solid #ffd49a;border-left:3px solid var(--orange);border-radius:8px;padding:9px 14px;margin-bottom:12px;font-size:13px;color:#7a4400;font-weight:700}
 .undo-btn{background:#fff;border:1px solid var(--orange);color:var(--orange);border-radius:6px;padding:5px 12px;cursor:pointer;font-size:12px;font-family:'Lato',sans-serif;font-weight:700}
 
-/* sort */
 .sorts{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
 .sorts-lbl{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.1em}
 .sbtn{background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:99px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:'Lato',sans-serif;font-weight:700;transition:all .2s}
 .sbtn.on{background:var(--blue);border-color:var(--blue);color:#fff}
 
-/* grid */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px;margin-bottom:16px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 10px 12px;display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;transition:all .18s;border-top:4px solid var(--blue)}
+
+/* ── CARD BASE ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 10px 12px;display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;transition:all .25s;border-top:4px solid var(--blue)}
 .card:hover{box-shadow:0 6px 20px rgba(0,47,108,.12);transform:translateY(-2px)}
 .card.flagged{border-top-color:var(--orange);background:#fffbf5}
 .card.detained{border-top-color:var(--red);background:#fff5f5}
 .card.warned{border-top-color:var(--orange);background:#fffbf5}
 
-/* avatar */
+/* ── SCORE 4: subtle warm gold glow ── */
+.card.score4{
+  border-top-color:#f5c400;
+  border-color:#f5e080;
+  background:linear-gradient(160deg,#fffef0 0%,#fff 70%);
+  box-shadow:0 0 0 2px #f5e08066, 0 4px 18px rgba(245,196,0,.18);
+}
+.card.score4:hover{box-shadow:0 0 0 2px #f5e08099, 0 6px 24px rgba(245,196,0,.28);}
+
+/* ── SCORE 5: full star glow + shimmer ── */
+@keyframes starPulse{
+  0%,100%{box-shadow:0 0 0 2px #f5c40088, 0 0 16px 4px rgba(245,196,0,.35), 0 0 32px 8px rgba(255,143,28,.15)}
+  50%{box-shadow:0 0 0 3px #f5c400bb, 0 0 24px 8px rgba(245,196,0,.55), 0 0 48px 16px rgba(255,143,28,.25)}
+}
+@keyframes shimmer{
+  0%{background-position:200% center}
+  100%{background-position:-200% center}
+}
+.card.score5{
+  border-top:4px solid #f5c400;
+  border-color:#f5c400;
+  background:linear-gradient(160deg,#fffde6 0%,#fff9d0 40%,#fff 70%);
+  animation:starPulse 2s ease-in-out infinite;
+}
+.card.score5:hover{transform:translateY(-3px) scale(1.02)}
+.card.score5 .cname{background:linear-gradient(90deg,#b8860b,#f5c400,#ff8c00,#f5c400,#b8860b);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 2.5s linear infinite}
+
 .av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;letter-spacing:-.5px}
 .cname{font-size:13px;font-weight:700;color:var(--navy);text-align:center;line-height:1.2}
 
-/* badge */
 .badge{font-size:10px;font-weight:900;padding:3px 10px;border-radius:99px;letter-spacing:.06em;text-transform:uppercase}
 .bg{background:#e4f7ed;color:#1a7a45;border:1px solid #a3ddb9}
 .ba{background:#fff4e0;color:#7a4400;border:1px solid #ffcc80}
 .br{background:#fde8e8;color:#8b0000;border:1px solid #f4a0a0}
+/* score 4 badge */
+.b4{background:#fffacd;color:#7a5c00;border:1px solid #f5c400}
+/* score 5 badge */
+.b5{background:linear-gradient(90deg,#fff3b0,#ffe066);color:#6b4c00;border:1px solid #f5c400;font-weight:900}
 
-/* stepper */
 .stepper{display:flex;align-items:center;gap:8px}
 .spbtn{width:30px;height:30px;border-radius:50%;border:2px solid var(--border);background:var(--bg);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--navy);font-family:'Lato',sans-serif;font-weight:900;transition:all .18s;line-height:1}
 .spbtn:hover{background:var(--blue);color:#fff;border-color:var(--blue);transform:scale(1.1)}
 .spbtn:active{transform:scale(.92)}
-.snum{font-size:28px;font-weight:900;min-width:36px;text-align:center}
+.snum{font-size:28px;font-weight:900;min-width:36px;text-align:center;transition:transform .15s}
 .col-g{color:var(--green)}
 .col-a{color:var(--orange)}
 .col-r{color:var(--red)}
 .col-b{color:var(--blue)}
+.col-gold{color:#c8900a}
+.col-star{background:linear-gradient(135deg,#b8860b,#f5c400,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-/* flag */
 .flag{position:absolute;top:9px;right:9px;background:none;border:none;cursor:pointer;font-size:14px;color:#c5d8e8;transition:all .2s;padding:0;line-height:1}
 .flag.on{color:var(--orange)}
 .flag:hover{color:var(--orange);transform:scale(1.2)}
 
-/* empty */
 .empty{text-align:center;padding:3rem 1rem;color:var(--muted);background:var(--surface);border-radius:12px;border:2px dashed var(--border)}
 .empty-emoji{font-size:48px;display:block;margin-bottom:12px}
-.empty p{font-size:14px;line-height:1.7;font-weight:400}
+.empty p{font-size:14px;line-height:1.7}
 .empty strong{font-weight:900;color:var(--navy)}
 
-/* behaviours */
 .sec-h{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px}
 .beh-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
 .beh{border-radius:10px;padding:14px;border:1px solid var(--border);background:var(--surface)}
@@ -121,37 +144,37 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
 .beh ul li::before{font-weight:900;flex-shrink:0;font-size:13px}
 .beh-pos ul li::before{content:'✓';color:var(--green)}
 .beh-neg ul li::before{content:'✗';color:var(--red)}
+.beh-neg ul li.nafs{color:#8b0000;font-weight:700}
+.beh-neg ul li.nafs::before{content:'✗';color:var(--red)}
 
-/* actions */
 .acts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 .act-btn{background:var(--surface);border:1.5px solid var(--border);color:var(--navy);border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;font-family:'Lato',sans-serif;font-weight:700;display:flex;align-items:center;gap:6px;transition:all .2s}
 .act-btn:hover{background:var(--bg);border-color:var(--blue);color:var(--blue)}
 
-/* modal */
 .mback{display:none;position:fixed;inset:0;background:rgba(0,15,50,.6);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
 .mback.open{display:flex}
 .modal{background:#fff;border-radius:14px;padding:1.5rem;width:430px;max-width:95vw;max-height:82vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,47,108,.22)}
 .modal h3{font-size:18px;font-weight:900;margin-bottom:.75rem;color:var(--navy)}
-.mclose{float:right;background:none;border:none;cursor:pointer;font-size:20px;color:var(--muted);line-height:1}
+.mclose{float:right;background:none;border:none;cursor:pointer;font-size:20px;color:var(--muted)}
 .mclose:hover{color:var(--navy)}
 .modal label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
-.modal input[type=text],.modal textarea{width:100%;background:#f5f8fb;border:1.5px solid var(--border);color:var(--navy);border-radius:8px;padding:9px 12px;font-size:13px;font-family:'Lato',sans-serif;margin-top:5px;font-weight:400}
+.modal input[type=text],.modal textarea{width:100%;background:#f5f8fb;border:1.5px solid var(--border);color:var(--navy);border-radius:8px;padding:9px 12px;font-size:13px;font-family:'Lato',sans-serif;margin-top:5px}
 .modal input:focus,.modal textarea:focus{outline:none;border-color:var(--blue)}
-.mbtn{background:var(--blue);border:none;color:#fff;border-radius:8px;padding:9px 18px;cursor:pointer;font-size:13px;font-family:'Lato',sans-serif;font-weight:700;margin-top:10px;letter-spacing:.2px;transition:opacity .2s}
+.mbtn{background:var(--blue);border:none;color:#fff;border-radius:8px;padding:9px 18px;cursor:pointer;font-size:13px;font-family:'Lato',sans-serif;font-weight:700;margin-top:10px;transition:opacity .2s}
 .mbtn:hover{opacity:.88}
 .mbtn.sec{background:#f0f4f8;color:var(--navy);border:1.5px solid var(--border)}
+.mbtn.danger{background:#fde8e8;color:var(--red);border:1.5px solid #f4a0a0}
+.mbtn.danger:hover{background:#f4a0a0;color:#fff}
 .log-r{display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:1px solid var(--border)}
 .log-t{color:var(--muted)}
 .smsg{font-size:12px;color:var(--muted);margin-top:8px}
 .divider{height:1px;background:var(--border);margin:16px 0}
 
-/* score pop animation */
-@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.25)}100%{transform:scale(1)}}
-.pop{animation:pop .2s ease}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.3)}100%{transform:scale(1)}}
+.pop{animation:pop .22s ease}
 </style>
 
 <div class="app">
-  <!-- header -->
   <div class="hdr">
     <div class="hdr-top">
       <div class="brand">
@@ -159,19 +182,20 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
           <div class="logo-sisb">S<em>I</em>SB</div>
           <div class="logo-sub">Schools</div>
         </div>
-        <div class="brand-copy">
+        <div>
           <div class="brand-title">⭐ Credits of Goodwill</div>
           <div class="brand-tagline">Nonthaburi · Spirit of Excellence</div>
         </div>
       </div>
       <div class="hdr-btns">
+        <button class="hbtn reset-all" id="resetAllBtn" title="Reset whole class to 3">🔄 Reset to 3</button>
         <button class="hbtn" id="loadBtn">📋 Load names</button>
         <button class="hbtn" id="histBtn">🕐 History</button>
         <button class="hbtn" id="exportBtn">⬇ Export</button>
-        <button class="hbtn danger" id="resetBtn" title="Reset class">🗑</button>
+        <button class="hbtn danger" id="resetBtn" title="Wipe all data">🗑</button>
       </div>
     </div>
-    <div class="tabs-wrap" style="background:none;padding:12px 0 16px">
+    <div class="tabs-wrap">
       <div class="tabs">
         <button class="tab" data-c="7A">7A</button>
         <button class="tab" data-c="7E">7E</button>
@@ -185,7 +209,6 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
   </div>
 
   <div class="main">
-    <!-- stats -->
     <div class="stats" id="statsBar" style="display:none">
       <div class="stat s-avg" data-emoji="👥"><div class="stat-l">Students</div><div class="stat-v" id="sT">0</div></div>
       <div class="stat s-avg" data-emoji="📊"><div class="stat-l">Avg score</div><div class="stat-v" id="sA">—</div></div>
@@ -208,7 +231,6 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
     </div>
 
     <div class="grid" id="grid"></div>
-
     <div class="empty" id="empty">
       <span class="empty-emoji">🎓</span>
       <p>Pick a class above to get started.<br><strong>Names load automatically</strong> from your roster.</p>
@@ -243,6 +265,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
             <li>Lack of effort</li>
             <li>Incorrect uniform</li>
             <li>Speaking Thai / Chinese</li>
+            <li class="nafs">N.A.F.S.</li>
           </ul>
         </div>
       </div>
@@ -260,7 +283,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text)}
     <input type="text" id="csvUrl" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
     <div style="display:flex;gap:8px;margin-top:10px">
       <button class="mbtn" id="fetchBtn">⬇ Fetch names</button>
-      <button class="mbtn sec" id="showM">✏️ Enter manually</button>
+      <button class="mbtn sec" id="showM">✏️ Manual entry</button>
     </div>
     <div id="manArea" style="display:none;margin-top:14px">
       <label>One name per line</label>
@@ -311,9 +334,9 @@ function lstore(){if(!cls)return;try{stu=JSON.parse(localStorage.getItem(sk('s')
 function sstore(){if(!cls)return;localStorage.setItem(sk('s'),JSON.stringify(stu));localStorage.setItem(sk('h'),JSON.stringify(hist));}
 function init(names){names.forEach(n=>{if(!stu[n])stu[n]={score:DEF,flag:false};});sstore();}
 const lbl=v=>v===-1?'DETENTION':v===0?'WARNING':String(v);
+function scoreEmoji(v){return['🚨','⚠️','😕','😐','👍','😊','🌟'][v+1]||'👍';}
 function avCol(n){let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))&0xffff;return AV_COLS[h%AV_COLS.length];}
 function ini(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
-function scoreEmoji(v){if(v===5)return'🌟';if(v===4)return'😊';if(v===3)return'👍';if(v===2)return'😐';if(v===1)return'😕';if(v===0)return'⚠️';return'🚨';}
 function getSorted(){
   const n=Object.keys(stu);
   if(srt==='name')return n.sort((a,b)=>a.localeCompare(b));
@@ -326,26 +349,29 @@ function getSorted(){
 function render(){
   const g=document.getElementById('grid'),em=document.getElementById('empty');
   const sb=document.getElementById('statsBar'),so=document.getElementById('sortBar');
-  const ac=document.getElementById('acts'),bw=document.getElementById('behWrap');
-  const dv=document.getElementById('divider');
+  const ac=document.getElementById('acts'),bw=document.getElementById('behWrap'),dv=document.getElementById('divider');
   const names=getSorted();
   if(!cls||!names.length){g.innerHTML='';em.style.display='block';sb.style.display='none';so.style.display='none';ac.style.display='none';bw.style.display='none';dv.style.display='none';return;}
   em.style.display='none';sb.style.display='grid';so.style.display='flex';ac.style.display='flex';bw.style.display='block';dv.style.display='block';
   g.innerHTML=names.map(n=>{
     const s=stu[n],v=s.score;
     let cc='card';
-    if(s.flag)cc+=' flagged';else if(v===-1)cc+=' detained';else if(v===0)cc+=' warned';
-    const ncls=v<0?'col-r':v===0?'col-a':v<=2?'col-a':'col-b';
-    const bcls=v<0?'badge br':v===0?'badge ba':'badge bg';
+    if(v===5)cc+=' score5';
+    else if(v===4)cc+=' score4';
+    else if(s.flag)cc+=' flagged';
+    else if(v===-1)cc+=' detained';
+    else if(v===0)cc+=' warned';
+    const ncls=v===5?'col-star':v===4?'col-gold':v<0?'col-r':v===0?'col-a':v<=2?'col-a':'col-b';
+    const bcls=v===5?'badge b5':v===4?'badge b4':v<0?'badge br':v===0?'badge ba':'badge bg';
     const bg=avCol(n);
     return`<div class="${cc}">
-      <button class="flag${s.flag?' on':''}" data-n="${n}" aria-label="Flag ${n}" title="Flag for follow-up">🚩</button>
-      <div class="av" style="background:${bg}22;color:${bg};border:2px solid ${bg}55;font-size:14px">${ini(n)}</div>
+      <button class="flag${s.flag?' on':''}" data-n="${n}" title="Flag for follow-up">🚩</button>
+      <div class="av" style="background:${bg}22;color:${bg};border:2px solid ${bg}55">${ini(n)}</div>
       <div class="cname">${n}</div>
       <span class="${bcls}">${scoreEmoji(v)} ${lbl(v)}</span>
       <div class="stepper">
         <button class="spbtn" data-n="${n}" data-d="-1" aria-label="Decrease">−</button>
-        <span class="snum ${ncls}">${v===-1?'!':v}</span>
+        <span class="snum ${ncls}" id="snum-${n.replace(/\s/g,'_')}">${v===-1?'!':v}</span>
         <button class="spbtn" data-n="${n}" data-d="1" aria-label="Increase">+</button>
       </div>
     </div>`;
@@ -356,6 +382,9 @@ function render(){
     if(nv===pv)return;
     stu[nm].score=nv;hist.unshift({ts:Date.now(),n:nm,f:pv,t:nv,c:cls});if(hist.length>200)hist.pop();
     last={name:nm,prev:pv};sstore();showUndo(nm,pv,nv);render();
+    // pop animation on the number
+    const el=document.getElementById('snum-'+nm.replace(/\s/g,'_'));
+    if(el){el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');}
   });
   g.querySelectorAll('.flag').forEach(b=>b.onclick=()=>{const nm=b.dataset.n;stu[nm].flag=!stu[nm].flag;sstore();render();});
 }
@@ -384,6 +413,16 @@ document.getElementById('undoBtn').onclick=()=>{
   document.getElementById('undoBar').style.display='none';last=null;if(utimer)clearTimeout(utimer);
 };
 
+// Reset ALL scores to 3
+document.getElementById('resetAllBtn').onclick=()=>{
+  if(!cls||!Object.keys(stu).length)return;
+  if(confirm(`Reset all ${cls} scores back to 3?`)){
+    Object.keys(stu).forEach(n=>stu[n].score=DEF);
+    hist.unshift({ts:Date.now(),n:'ALL',f:'?',t:DEF,c:cls,note:'Class reset to 3'});
+    sstore();render();
+  }
+};
+
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
   cls=b.dataset.c;
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');
@@ -395,7 +434,7 @@ document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('.sbtn').forEach(b=>b.onclick=()=>{srt=b.dataset.s;document.querySelectorAll('.sbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');render();});
 
 document.getElementById('loadBtn').onclick=()=>{
-  if(!cls){alert('Please select a class first.');return;}
+  if(!cls){alert('Pick a class first.');return;}
   document.getElementById('lCls').textContent=cls;
   document.getElementById('csvUrl').value=localStorage.getItem(`cog_url_${cls}`)||SHEET;
   document.getElementById('lStat').textContent='';
@@ -422,22 +461,17 @@ document.getElementById('fetchBtn').onclick=async()=>{
     let ci=hdr.findIndex(h=>h.toLowerCase()===key.toLowerCase());
     if(ci<0)ci=hdr.findIndex(h=>h.toLowerCase().includes(key.toLowerCase()));
     let names=[];
-    if(ci>=0){
-      names=rows.slice(1).map(r=>r.split(',')[ci]).map(n=>n.replace(/^"|"$/g,'').trim()).filter(Boolean);
-    }else{
-      names=rows.map(r=>r.split(',')[0].replace(/^"|"$/g,'').trim()).filter(Boolean);
-      const skip=['name','student','class','nickname','id'];
-      if(names.length&&skip.some(s=>names[0].toLowerCase().includes(s)))names=names.slice(1);
-    }
-    if(!names.length){document.getElementById('lStat').textContent='No names found — check the URL or column headers.';return;}
+    if(ci>=0){names=rows.slice(1).map(r=>r.split(',')[ci]).map(n=>n.replace(/^"|"$/g,'').trim()).filter(Boolean);}
+    else{names=rows.map(r=>r.split(',')[0].replace(/^"|"$/g,'').trim()).filter(Boolean);const skip=['name','student','class','nickname','id'];if(names.length&&skip.some(s=>names[0].toLowerCase().includes(s)))names=names.slice(1);}
+    if(!names.length){document.getElementById('lStat').textContent='No names found.';return;}
     init(names);document.getElementById('lStat').textContent=`✓ Loaded ${names.length} students.`;
     setTimeout(()=>document.getElementById('loadM').classList.remove('open'),700);render();
-  }catch(e){document.getElementById('lStat').textContent='Could not fetch — make sure the sheet is published publicly.';}
+  }catch(e){document.getElementById('lStat').textContent='Could not fetch — check the sheet is published publicly.';}
 };
 
 document.getElementById('histBtn').onclick=()=>{
   document.getElementById('histL').innerHTML=hist.length
-    ?hist.slice(0,80).map(e=>{const d=new Date(e.ts);return`<div class="log-r"><span><strong>${e.n}</strong> (${e.c}): ${lbl(e.f)} → ${lbl(e.t)}</span><span class="log-t">${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span></div>`;}).join('')
+    ?hist.slice(0,80).map(e=>{const d=new Date(e.ts);return`<div class="log-r"><span><strong>${e.n}</strong>${e.note?' — '+e.note:' ('+e.c+'): '+lbl(e.f)+' → '+lbl(e.t)}</span><span class="log-t">${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span></div>`;}).join('')
     :`<p style="font-size:13px;color:var(--muted);margin-top:8px">No changes recorded yet.</p>`;
   document.getElementById('histM').classList.add('open');
 };
@@ -448,8 +482,7 @@ document.getElementById('exportBtn').onclick=()=>{
   const date=new Date().toISOString().slice(0,10);
   let csv=`Credits of Goodwill — ${cls} — ${date}\nStudent,Score,Status,Flagged\n`;
   getSorted().forEach(n=>{const s=stu[n];csv+=`${n},${s.score},${lbl(s.score)},${s.flag?'Yes':'No'}\n`;});
-  document.getElementById('csvTxt').value=csv;
-  document.getElementById('csvM').classList.add('open');
+  document.getElementById('csvTxt').value=csv;document.getElementById('csvM').classList.add('open');
 };
 document.getElementById('cCsv').onclick=()=>document.getElementById('csvM').classList.remove('open');
 document.getElementById('dlBtn').onclick=()=>{
@@ -458,13 +491,12 @@ document.getElementById('dlBtn').onclick=()=>{
 };
 document.getElementById('cpBtn').onclick=()=>{
   navigator.clipboard.writeText(document.getElementById('csvTxt').value);
-  document.getElementById('cpBtn').textContent='✓ Copied!';
-  setTimeout(()=>{document.getElementById('cpBtn').textContent='📋 Copy';},1500);
+  document.getElementById('cpBtn').textContent='✓ Copied!';setTimeout(()=>document.getElementById('cpBtn').textContent='📋 Copy',1500);
 };
-document.getElementById('resetBtn').onclick=()=>{if(!cls)return;if(confirm(`Reset all scores for ${cls}?`)){stu={};hist=[];sstore();render();}};
+document.getElementById('resetBtn').onclick=()=>{if(!cls)return;if(confirm(`Wipe ALL data for ${cls}? This cannot be undone.`)){stu={};hist=[];sstore();render();}};
 document.getElementById('warnBtn').onclick=()=>{
   const f=Object.keys(stu).filter(n=>stu[n].score<=0||stu[n].flag);
-  alert(f.length?'Needs attention:\n\n'+f.map(n=>`${n}: ${lbl(stu[n].score)}${stu[n].flag?' [flagged]':''}`).join('\n'):'🎉 All students are above warning level — great work!');
+  alert(f.length?'Needs attention:\n\n'+f.map(n=>`${n}: ${lbl(stu[n].score)}${stu[n].flag?' [flagged]':''}`).join('\n'):'🎉 All students above warning level!');
 };
 document.querySelectorAll('.mback').forEach(m=>m.onclick=e=>{if(e.target===m)m.classList.remove('open');});
 render();
